@@ -15,6 +15,7 @@
 		D36F610A25BF024C00F1FF4C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D36F610825BF024C00F1FF4C /* LaunchScreen.storyboard */; };
 		D38CE09025BF040C0044B50B /* KakaoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38CE08F25BF040C0044B50B /* KakaoService.swift */; };
 		D38CE09425BF08DE0044B50B /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38CE09325BF08DE0044B50B /* SearchResult.swift */; };
+		D3E2BE8C25BF2B7C003D0307 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E2BE8B25BF2B7C003D0307 /* ImageCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		D36F610B25BF024C00F1FF4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D38CE08F25BF040C0044B50B /* KakaoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoService.swift; sourceTree = "<group>"; };
 		D38CE09325BF08DE0044B50B /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
+		D3E2BE8B25BF2B7C003D0307 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				D36F610125BF024B00F1FF4C /* MainVC.swift */,
+				D3E2BE8A25BF2B6A003D0307 /* CollectionViewCell */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -124,6 +127,14 @@
 				D38CE09325BF08DE0044B50B /* SearchResult.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		D3E2BE8A25BF2B6A003D0307 /* CollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				D3E2BE8B25BF2B7C003D0307 /* ImageCell.swift */,
+			);
+			path = CollectionViewCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -244,6 +255,7 @@
 				D38CE09425BF08DE0044B50B /* SearchResult.swift in Sources */,
 				D36F60FE25BF024B00F1FF4C /* AppDelegate.swift in Sources */,
 				D36F610025BF024B00F1FF4C /* SceneDelegate.swift in Sources */,
+				D3E2BE8C25BF2B7C003D0307 /* ImageCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
