@@ -11,6 +11,12 @@ class ViewController: UIViewController {
 
     // MARK: - Properties
     
+    private var documents: [Document]? {
+        didSet {
+            guard let documents = documents else { return }
+            print(documents)
+        }
+    }
     
     // MARK: - Life Cycle
     
@@ -19,6 +25,7 @@ class ViewController: UIViewController {
         configure()
         configureNavi()
         configureViews()
+        searchImages(keyward: "콜라")
     }
     
     // MARK: - Actions
@@ -26,6 +33,16 @@ class ViewController: UIViewController {
     
     // MARK: - Helpers
     
+    func searchImages(keyward: String) {
+        KakaoService.shared.getImages(keyward: keyward) { [weak self] (res) in
+            switch res {
+            case .success(let res):
+                self?.documents = res.documents
+            case .failure(let err):
+                err.descriptionPrint()
+            }
+        }
+    }
     
     // MARK: - Configure
     
