@@ -3,14 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		B5C811FD7BF495088D779974 /* Pods_MyImageSearchApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6538A7FD7A66DAC7953B2135 /* Pods_MyImageSearchApp.framework */; };
 		D36F60FE25BF024B00F1FF4C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36F60FD25BF024B00F1FF4C /* AppDelegate.swift */; };
 		D36F610025BF024B00F1FF4C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36F60FF25BF024B00F1FF4C /* SceneDelegate.swift */; };
-		D36F610225BF024B00F1FF4C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36F610125BF024B00F1FF4C /* ViewController.swift */; };
+		D36F610225BF024B00F1FF4C /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36F610125BF024B00F1FF4C /* MainVC.swift */; };
 		D36F610725BF024C00F1FF4C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D36F610625BF024C00F1FF4C /* Assets.xcassets */; };
 		D36F610A25BF024C00F1FF4C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D36F610825BF024C00F1FF4C /* LaunchScreen.storyboard */; };
 		D38CE09025BF040C0044B50B /* KakaoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38CE08F25BF040C0044B50B /* KakaoService.swift */; };
@@ -24,7 +24,7 @@
 		D36F60FA25BF024B00F1FF4C /* MyImageSearchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyImageSearchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D36F60FD25BF024B00F1FF4C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D36F60FF25BF024B00F1FF4C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		D36F610125BF024B00F1FF4C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D36F610125BF024B00F1FF4C /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
 		D36F610625BF024C00F1FF4C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D36F610925BF024C00F1FF4C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D36F610B25BF024C00F1FF4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -50,7 +50,6 @@
 				1F77DDB307DA04175741FE92 /* Pods-MyImageSearchApp.debug.xcconfig */,
 				74404817B393DA101FE02D4F /* Pods-MyImageSearchApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -106,7 +105,7 @@
 		D36F611425BF030500F1FF4C /* VC */ = {
 			isa = PBXGroup;
 			children = (
-				D36F610125BF024B00F1FF4C /* ViewController.swift */,
+				D36F610125BF024B00F1FF4C /* MainVC.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -240,7 +239,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D36F610225BF024B00F1FF4C /* ViewController.swift in Sources */,
+				D36F610225BF024B00F1FF4C /* MainVC.swift in Sources */,
 				D38CE09025BF040C0044B50B /* KakaoService.swift in Sources */,
 				D38CE09425BF08DE0044B50B /* SearchResult.swift in Sources */,
 				D36F60FE25BF024B00F1FF4C /* AppDelegate.swift in Sources */,
