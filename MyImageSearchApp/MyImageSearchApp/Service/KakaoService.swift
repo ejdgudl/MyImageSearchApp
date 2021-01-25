@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Alamofire
 
 final class KakaoService {
     
@@ -23,62 +24,58 @@ final class KakaoService {
     
     func getImages(keyward: String, sort: Sort = .accuracy, page: Int = 1, completion: @escaping (Result<SearchResult, NetworkingError>) -> () ) {
         
-        var components = URLComponents(string: baseURL)
-        let query = URLQueryItem(name: "query", value: keyward)
-        components?.queryItems = [query]
-        let sort = URLQueryItem(name: "sort", value: sort.rawValue)
-        components?.queryItems?.append(sort)
-        let page = URLQueryItem(name: "page", value: String(page))
-        components?.queryItems?.append(page)
-        let size = URLQueryItem(name: "size", value: "30")
-        components?.queryItems?.append(size)
+        let params: [String: Any] = [
+            "query": keyward,
+            "sort": sort.rawValue,
+            "page": page,
+            "size": "30"
+        ]
         
-        if let url = components?.url {
+        let headers: HTTPHeaders = [
+            "Authorization": "KakaoAK 26a064bb00e0f331a0f853ceea59fd4c",
+        ]
+        
+        AF.request(baseURL, method: .get, parameters: params, headers: headers).responseData { (res) in
             
-            var request = URLRequest(url: url)
-            request.httpMethod = "GET"
-            request.setValue("KakaoAK 26a064bb00e0f331a0f853ceea59fd4c", forHTTPHeaderField: "Authorization")
+            debugPrint(res)
             
-            URLSession.shared.dataTask(with: request) { (data, res, error) in
-                debugPrint(res)
-                guard error == nil else {
-                    completion(.failure(.requestError))
-                    return
-                }
+            guard res.error == nil else {
+                completion(.failure(.requestError))
+                return
+            }
+            
+            guard let statusCode = res.response?.statusCode else {
+                completion(.failure(.responseError))
+                return
+            }
+            
+            switch statusCode {
+            
+            case 200...299:
                 
-                guard let statusCode = (res as? HTTPURLResponse)?.statusCode else {
-                    completion(.failure(.responseError))
-                    return
-                }
-
-                switch statusCode {
-                
-                case 200...299:
+                if let data = res.data {
                     
-                    if let data = data {
+                    do {
                         
-                        do {
-                            
-                            let decodeResult = try JSONDecoder().decode(SearchResult.self, from: data)
-                            completion(.success(decodeResult))
-                            
-                        } catch {
-                            
-                            completion(.failure(.decodeError))
-                            
-                        }
+                        let decodeResult = try JSONDecoder().decode(SearchResult.self, from: data)
+                        completion(.success(decodeResult))
+                        
+                    } catch {
+                        
+                        completion(.failure(.decodeError))
+                        
                     }
                     
-                default:
-                    
-                    completion(.failure(.statusCodeError))
-                    
                 }
                 
-            }.resume()
+            default:
+                
+                completion(.failure(.statusCodeError))
+                
+            }
             
         }
-        
+            
     }
  
 }

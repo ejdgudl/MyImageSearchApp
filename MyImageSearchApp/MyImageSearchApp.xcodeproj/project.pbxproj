@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B5C811FD7BF495088D779974 /* Pods_MyImageSearchApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6538A7FD7A66DAC7953B2135 /* Pods_MyImageSearchApp.framework */; };
 		D36F60FE25BF024B00F1FF4C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36F60FD25BF024B00F1FF4C /* AppDelegate.swift */; };
 		D36F610025BF024B00F1FF4C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36F60FF25BF024B00F1FF4C /* SceneDelegate.swift */; };
 		D36F610225BF024B00F1FF4C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36F610125BF024B00F1FF4C /* ViewController.swift */; };
@@ -17,6 +18,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1F77DDB307DA04175741FE92 /* Pods-MyImageSearchApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyImageSearchApp.debug.xcconfig"; path = "Target Support Files/Pods-MyImageSearchApp/Pods-MyImageSearchApp.debug.xcconfig"; sourceTree = "<group>"; };
+		6538A7FD7A66DAC7953B2135 /* Pods_MyImageSearchApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyImageSearchApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		74404817B393DA101FE02D4F /* Pods-MyImageSearchApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyImageSearchApp.release.xcconfig"; path = "Target Support Files/Pods-MyImageSearchApp/Pods-MyImageSearchApp.release.xcconfig"; sourceTree = "<group>"; };
 		D36F60FA25BF024B00F1FF4C /* MyImageSearchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyImageSearchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D36F60FD25BF024B00F1FF4C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D36F60FF25BF024B00F1FF4C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -33,17 +37,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5C811FD7BF495088D779974 /* Pods_MyImageSearchApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5C283E66D0FA38A5CDFF051E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1F77DDB307DA04175741FE92 /* Pods-MyImageSearchApp.debug.xcconfig */,
+				74404817B393DA101FE02D4F /* Pods-MyImageSearchApp.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		7C2EDE719A281FD3F7EED925 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6538A7FD7A66DAC7953B2135 /* Pods_MyImageSearchApp.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D36F60F125BF024B00F1FF4C = {
 			isa = PBXGroup;
 			children = (
 				D36F60FC25BF024B00F1FF4C /* MyImageSearchApp */,
 				D36F60FB25BF024B00F1FF4C /* Products */,
+				5C283E66D0FA38A5CDFF051E /* Pods */,
+				7C2EDE719A281FD3F7EED925 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -109,9 +134,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D36F610E25BF024C00F1FF4C /* Build configuration list for PBXNativeTarget "MyImageSearchApp" */;
 			buildPhases = (
+				B6D3E4BB5DE27C8E9B4FD5AA /* [CP] Check Pods Manifest.lock */,
 				D36F60F625BF024B00F1FF4C /* Sources */,
 				D36F60F725BF024B00F1FF4C /* Frameworks */,
 				D36F60F825BF024B00F1FF4C /* Resources */,
+				2328FEE0770DB6AD28AECCD8 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -165,6 +192,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2328FEE0770DB6AD28AECCD8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MyImageSearchApp/Pods-MyImageSearchApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MyImageSearchApp/Pods-MyImageSearchApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MyImageSearchApp/Pods-MyImageSearchApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B6D3E4BB5DE27C8E9B4FD5AA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MyImageSearchApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D36F60F625BF024B00F1FF4C /* Sources */ = {
@@ -311,6 +380,7 @@
 		};
 		D36F610F25BF024C00F1FF4C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1F77DDB307DA04175741FE92 /* Pods-MyImageSearchApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -330,6 +400,7 @@
 		};
 		D36F611025BF024C00F1FF4C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 74404817B393DA101FE02D4F /* Pods-MyImageSearchApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
