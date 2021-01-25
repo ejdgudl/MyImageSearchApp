@@ -12,6 +12,8 @@
 		D36F610225BF024B00F1FF4C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36F610125BF024B00F1FF4C /* ViewController.swift */; };
 		D36F610725BF024C00F1FF4C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D36F610625BF024C00F1FF4C /* Assets.xcassets */; };
 		D36F610A25BF024C00F1FF4C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D36F610825BF024C00F1FF4C /* LaunchScreen.storyboard */; };
+		D38CE09025BF040C0044B50B /* KakaoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38CE08F25BF040C0044B50B /* KakaoService.swift */; };
+		D38CE09425BF08DE0044B50B /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38CE09325BF08DE0044B50B /* SearchResult.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		D36F610625BF024C00F1FF4C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D36F610925BF024C00F1FF4C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D36F610B25BF024C00F1FF4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D38CE08F25BF040C0044B50B /* KakaoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoService.swift; sourceTree = "<group>"; };
+		D38CE09325BF08DE0044B50B /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +58,8 @@
 		D36F60FC25BF024B00F1FF4C /* MyImageSearchApp */ = {
 			isa = PBXGroup;
 			children = (
+				D38CE09225BF084F0044B50B /* Model */,
+				D38CE08E25BF04030044B50B /* Service */,
 				D36F611425BF030500F1FF4C /* VC */,
 				D36F611325BF02FD00F1FF4C /* Supports */,
 				D36F610625BF024C00F1FF4C /* Assets.xcassets */,
@@ -78,6 +84,22 @@
 				D36F610125BF024B00F1FF4C /* ViewController.swift */,
 			);
 			path = VC;
+			sourceTree = "<group>";
+		};
+		D38CE08E25BF04030044B50B /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				D38CE08F25BF040C0044B50B /* KakaoService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		D38CE09225BF084F0044B50B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D38CE09325BF08DE0044B50B /* SearchResult.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -150,6 +172,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D36F610225BF024B00F1FF4C /* ViewController.swift in Sources */,
+				D38CE09025BF040C0044B50B /* KakaoService.swift in Sources */,
+				D38CE09425BF08DE0044B50B /* SearchResult.swift in Sources */,
 				D36F60FE25BF024B00F1FF4C /* AppDelegate.swift in Sources */,
 				D36F610025BF024B00F1FF4C /* SceneDelegate.swift in Sources */,
 			);
