@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ImageCell: UICollectionViewCell {
     
@@ -14,15 +15,7 @@ class ImageCell: UICollectionViewCell {
     var document: Document? {
         didSet {
             guard let document = document, let url = URL(string: document.imageURL) else { return }
-            DispatchQueue.global().async { [weak self] in
-                if let data = try? Data(contentsOf: url) {
-                    if let image = UIImage(data: data) {
-                        DispatchQueue.main.async {
-                            self?.imageView.image = image
-                        }
-                    }
-                }
-            }
+            imageView.kf.setImage(with: url)
         }
     }
     
