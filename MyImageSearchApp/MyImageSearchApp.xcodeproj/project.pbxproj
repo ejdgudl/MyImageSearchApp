@@ -15,7 +15,10 @@
 		D36F610A25BF024C00F1FF4C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D36F610825BF024C00F1FF4C /* LaunchScreen.storyboard */; };
 		D38CE09025BF040C0044B50B /* KakaoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38CE08F25BF040C0044B50B /* KakaoService.swift */; };
 		D38CE09425BF08DE0044B50B /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38CE09325BF08DE0044B50B /* SearchResult.swift */; };
+		D393F0E925C04E5C00C399F2 /* DetailVCViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D393F0E825C04E5C00C399F2 /* DetailVCViewModel.swift */; };
+		D393F0EE25C051ED00C399F2 /* ImageCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D393F0ED25C051ED00C399F2 /* ImageCellViewModel.swift */; };
 		D3E2BE8C25BF2B7C003D0307 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E2BE8B25BF2B7C003D0307 /* ImageCell.swift */; };
+		D3E2BE9625BF3418003D0307 /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E2BE9525BF3418003D0307 /* DetailVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,7 +34,10 @@
 		D36F610B25BF024C00F1FF4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D38CE08F25BF040C0044B50B /* KakaoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoService.swift; sourceTree = "<group>"; };
 		D38CE09325BF08DE0044B50B /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
+		D393F0E825C04E5C00C399F2 /* DetailVCViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVCViewModel.swift; sourceTree = "<group>"; };
+		D393F0ED25C051ED00C399F2 /* ImageCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCellViewModel.swift; sourceTree = "<group>"; };
 		D3E2BE8B25BF2B7C003D0307 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		D3E2BE9525BF3418003D0307 /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,8 +113,8 @@
 		D36F611425BF030500F1FF4C /* VC */ = {
 			isa = PBXGroup;
 			children = (
-				D36F610125BF024B00F1FF4C /* MainVC.swift */,
-				D3E2BE8A25BF2B6A003D0307 /* CollectionViewCell */,
+				D3E2BE9325BF3400003D0307 /* MainVC */,
+				D3E2BE9425BF340A003D0307 /* DetailVC */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -129,12 +135,47 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		D393F0E725C04E4300C399F2 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D393F0E825C04E5C00C399F2 /* DetailVCViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		D393F0EC25C051DA00C399F2 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D393F0ED25C051ED00C399F2 /* ImageCellViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		D3E2BE8A25BF2B6A003D0307 /* CollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
 				D3E2BE8B25BF2B7C003D0307 /* ImageCell.swift */,
 			);
 			path = CollectionViewCell;
+			sourceTree = "<group>";
+		};
+		D3E2BE9325BF3400003D0307 /* MainVC */ = {
+			isa = PBXGroup;
+			children = (
+				D36F610125BF024B00F1FF4C /* MainVC.swift */,
+				D393F0EC25C051DA00C399F2 /* ViewModel */,
+				D3E2BE8A25BF2B6A003D0307 /* CollectionViewCell */,
+			);
+			path = MainVC;
+			sourceTree = "<group>";
+		};
+		D3E2BE9425BF340A003D0307 /* DetailVC */ = {
+			isa = PBXGroup;
+			children = (
+				D3E2BE9525BF3418003D0307 /* DetailVC.swift */,
+				D393F0E725C04E4300C399F2 /* ViewModel */,
+			);
+			path = DetailVC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -252,10 +293,13 @@
 			files = (
 				D36F610225BF024B00F1FF4C /* MainVC.swift in Sources */,
 				D38CE09025BF040C0044B50B /* KakaoService.swift in Sources */,
+				D393F0E925C04E5C00C399F2 /* DetailVCViewModel.swift in Sources */,
 				D38CE09425BF08DE0044B50B /* SearchResult.swift in Sources */,
 				D36F60FE25BF024B00F1FF4C /* AppDelegate.swift in Sources */,
+				D393F0EE25C051ED00C399F2 /* ImageCellViewModel.swift in Sources */,
 				D36F610025BF024B00F1FF4C /* SceneDelegate.swift in Sources */,
 				D3E2BE8C25BF2B7C003D0307 /* ImageCell.swift in Sources */,
+				D3E2BE9625BF3418003D0307 /* DetailVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

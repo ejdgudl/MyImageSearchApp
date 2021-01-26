@@ -120,12 +120,17 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: imageCellID, for: indexPath) as? ImageCell else { return UICollectionViewCell() }
-        cell.document = documents?[indexPath.row]
+        guard let document = documents?[indexPath.row] else { return UICollectionViewCell() }
+        cell.viewModel = ImageCellViewModel(document: document)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // FIXME: - present some VC
+        guard let document = documents?[indexPath.row] else { return }
+        let detailVC = DetailVC(viewModel: DetailVCViewModel(document: document))
+        let nav = UINavigationController(rootViewController: detailVC)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true)
     }
 
 }
@@ -135,14 +140,19 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
 extension MainVC: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (view.frame.width) / 3 - 1, height: (view.frame.width) / 3 - 1)
+        return CGSize(width: (view.frame.width) / 3 - 2, height: (view.frame.width) / 3 - 2)
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-            return 1
-        }
+        return 1
+    }
         
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
     }
     
 }

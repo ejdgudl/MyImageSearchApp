@@ -12,15 +12,16 @@ class ImageCell: UICollectionViewCell {
     
     // MARK: - Properties
     
-    var document: Document? {
+    var viewModel: ImageCellViewModel? {
         didSet {
-            guard let document = document, let url = URL(string: document.imageURL) else { return }
-            imageView.kf.setImage(with: url)
+            guard let viewModel = viewModel else { return }
+            imageView.kf.setImage(with: viewModel.imageURL)
         }
     }
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
@@ -28,7 +29,9 @@ class ImageCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .blue
+        backgroundColor = .white
+        layer.borderWidth = 0.3
+        layer.borderColor = UIColor.lightGray.cgColor
         
         addSubview(imageView)
         imageView.snp.makeConstraints { (make) in
