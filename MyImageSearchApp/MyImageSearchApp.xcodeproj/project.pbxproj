@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B5C811FD7BF495088D779974 /* Pods_MyImageSearchApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6538A7FD7A66DAC7953B2135 /* Pods_MyImageSearchApp.framework */; };
+		D31FD49D25C0771300E619C2 /* CodableValideTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31FD49C25C0771300E619C2 /* CodableValideTest.swift */; };
 		D36F60FE25BF024B00F1FF4C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36F60FD25BF024B00F1FF4C /* AppDelegate.swift */; };
 		D36F610025BF024B00F1FF4C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36F60FF25BF024B00F1FF4C /* SceneDelegate.swift */; };
 		D36F610225BF024B00F1FF4C /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36F610125BF024B00F1FF4C /* MainVC.swift */; };
@@ -22,10 +23,23 @@
 		D3E2BE9625BF3418003D0307 /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E2BE9525BF3418003D0307 /* DetailVC.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		D31FD49525C076B400E619C2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D36F60F225BF024B00F1FF4C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D36F60F925BF024B00F1FF4C;
+			remoteInfo = MyImageSearchApp;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		1F77DDB307DA04175741FE92 /* Pods-MyImageSearchApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyImageSearchApp.debug.xcconfig"; path = "Target Support Files/Pods-MyImageSearchApp/Pods-MyImageSearchApp.debug.xcconfig"; sourceTree = "<group>"; };
 		6538A7FD7A66DAC7953B2135 /* Pods_MyImageSearchApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyImageSearchApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		74404817B393DA101FE02D4F /* Pods-MyImageSearchApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyImageSearchApp.release.xcconfig"; path = "Target Support Files/Pods-MyImageSearchApp/Pods-MyImageSearchApp.release.xcconfig"; sourceTree = "<group>"; };
+		D31FD49025C076B400E619C2 /* MyImageSearchAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyImageSearchAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D31FD49425C076B400E619C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D31FD49C25C0771300E619C2 /* CodableValideTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableValideTest.swift; sourceTree = "<group>"; };
 		D36F60FA25BF024B00F1FF4C /* MyImageSearchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyImageSearchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D36F60FD25BF024B00F1FF4C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D36F60FF25BF024B00F1FF4C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -43,6 +57,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		D31FD48D25C076B400E619C2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D36F60F725BF024B00F1FF4C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -71,10 +92,20 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D31FD49125C076B400E619C2 /* MyImageSearchAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				D31FD49C25C0771300E619C2 /* CodableValideTest.swift */,
+				D31FD49425C076B400E619C2 /* Info.plist */,
+			);
+			path = MyImageSearchAppTests;
+			sourceTree = "<group>";
+		};
 		D36F60F125BF024B00F1FF4C = {
 			isa = PBXGroup;
 			children = (
 				D36F60FC25BF024B00F1FF4C /* MyImageSearchApp */,
+				D31FD49125C076B400E619C2 /* MyImageSearchAppTests */,
 				D36F60FB25BF024B00F1FF4C /* Products */,
 				5C283E66D0FA38A5CDFF051E /* Pods */,
 				7C2EDE719A281FD3F7EED925 /* Frameworks */,
@@ -85,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				D36F60FA25BF024B00F1FF4C /* MyImageSearchApp.app */,
+				D31FD49025C076B400E619C2 /* MyImageSearchAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -184,6 +216,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		D31FD48F25C076B400E619C2 /* MyImageSearchAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D31FD49925C076B400E619C2 /* Build configuration list for PBXNativeTarget "MyImageSearchAppTests" */;
+			buildPhases = (
+				D31FD48C25C076B400E619C2 /* Sources */,
+				D31FD48D25C076B400E619C2 /* Frameworks */,
+				D31FD48E25C076B400E619C2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D31FD49625C076B400E619C2 /* PBXTargetDependency */,
+			);
+			name = MyImageSearchAppTests;
+			productName = MyImageSearchAppTests;
+			productReference = D31FD49025C076B400E619C2 /* MyImageSearchAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		D36F60F925BF024B00F1FF4C /* MyImageSearchApp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D36F610E25BF024C00F1FF4C /* Build configuration list for PBXNativeTarget "MyImageSearchApp" */;
@@ -212,6 +262,10 @@
 				LastSwiftUpdateCheck = 1220;
 				LastUpgradeCheck = 1220;
 				TargetAttributes = {
+					D31FD48F25C076B400E619C2 = {
+						CreatedOnToolsVersion = 12.2;
+						TestTargetID = D36F60F925BF024B00F1FF4C;
+					};
 					D36F60F925BF024B00F1FF4C = {
 						CreatedOnToolsVersion = 12.2;
 					};
@@ -231,11 +285,19 @@
 			projectRoot = "";
 			targets = (
 				D36F60F925BF024B00F1FF4C /* MyImageSearchApp */,
+				D31FD48F25C076B400E619C2 /* MyImageSearchAppTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		D31FD48E25C076B400E619C2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D36F60F825BF024B00F1FF4C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -290,6 +352,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		D31FD48C25C076B400E619C2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D31FD49D25C0771300E619C2 /* CodableValideTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D36F60F625BF024B00F1FF4C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -309,6 +379,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		D31FD49625C076B400E619C2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D36F60F925BF024B00F1FF4C /* MyImageSearchApp */;
+			targetProxy = D31FD49525C076B400E619C2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		D36F610825BF024C00F1FF4C /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -321,6 +399,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		D31FD49725C076B400E619C2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RA99PDU87Z;
+				INFOPLIST_FILE = MyImageSearchAppTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = kr.DevDDong.MyImageSearchAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyImageSearchApp.app/MyImageSearchApp";
+			};
+			name = Debug;
+		};
+		D31FD49825C076B400E619C2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RA99PDU87Z;
+				INFOPLIST_FILE = MyImageSearchAppTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = kr.DevDDong.MyImageSearchAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyImageSearchApp.app/MyImageSearchApp";
+			};
+			name = Release;
+		};
 		D36F610C25BF024C00F1FF4C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -480,6 +598,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		D31FD49925C076B400E619C2 /* Build configuration list for PBXNativeTarget "MyImageSearchAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D31FD49725C076B400E619C2 /* Debug */,
+				D31FD49825C076B400E619C2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D36F60F525BF024B00F1FF4C /* Build configuration list for PBXProject "MyImageSearchApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
