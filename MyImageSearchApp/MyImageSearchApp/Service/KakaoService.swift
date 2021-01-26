@@ -5,24 +5,46 @@
 //  Created by 김동현 on 2021/01/25.
 //
 
-import Foundation
+import UIKit
 import Alamofire
 
-final class KakaoService {
+protocol KakaoServiceable {
+    
+    var baseURL: String { get set }
+    func getImages(keyward: String, sort: Sort, page: Int, completion: @escaping (Result<SearchResult, NetworkingError>) -> ())
+    
+}
+
+/// 개발 response
+final class KakaoServiceStub: KakaoServiceable {
     
     // MARK: - Properties
     
-    static let shared = KakaoService()
-    
-    private let baseURL = "https://dapi.kakao.com/v2/search/image"
-    
-    // MARK: - Life Cycle
-    
-    private init() { }
+    var baseURL = "https://dapi.kakao.com/v2/search/image"
     
     // MARK: - Helpers
     
-    func getImages(keyward: String, sort: Sort = .accuracy, page: Int = 1, completion: @escaping (Result<SearchResult, NetworkingError>) -> () ) {
+    func getImages(keyward: String, sort: Sort = .accuracy, page: Int = 1, completion: @escaping (Result<SearchResult, NetworkingError>) -> ()) {
+        do {
+            let decodeResult = try JSONDecoder().decode(SearchResult.self, from: SampleData.documents)
+            completion(.success(decodeResult))
+        } catch {
+            completion(.failure(.decodeError))
+        }
+    }
+    
+}
+
+/// 실 서버 response
+final class KakaoService: KakaoServiceable {
+    
+    // MARK: - Properties
+    
+    var baseURL = "https://dapi.kakao.com/v2/search/image"
+    
+    // MARK: - Helpers
+    
+    func getImages(keyward: String, sort: Sort, page: Int, completion: @escaping (Result<SearchResult, NetworkingError>) -> () ) {
         
         let params: [String: Any] = [
             "query": keyward,
@@ -83,43 +105,35 @@ final class KakaoService {
 
 // MARK: - Networking Error
 
-extension KakaoService {
+enum NetworkingError: Error {
     
-    enum NetworkingError: Error {
-        
-        case requestError
-        case responseError
-        case decodeError
-        case statusCodeError
-        
-        var errorDescription: String {
-            switch self {
-            case .requestError:
-                return "--Request Error--"
-            case .responseError:
-                return "--Response Error--"
-            case .decodeError:
-                return "--Strange Codable Model--"
-            case .statusCodeError:
-                return "--StatusCode is not contain 200...299--"
-            }
+    case requestError
+    case responseError
+    case decodeError
+    case statusCodeError
+    
+    var errorDescription: String {
+        switch self {
+        case .requestError:
+            return "--Request Error--"
+        case .responseError:
+            return "--Response Error--"
+        case .decodeError:
+            return "--Strange Codable Model--"
+        case .statusCodeError:
+            return "--StatusCode is not contain 200...299--"
         }
-        
-        func descriptionPrint() {
-            print(errorDescription)
-        }
-        
+    }
+    
+    func descriptionPrint() {
+        print(errorDescription)
     }
     
 }
 
 // MARK: - Request Case
 
-extension KakaoService {
-    
-    enum Sort: String {
-        case accuracy // 정확도순
-        case recency // 최신순
-    }
-    
+enum Sort: String {
+    case accuracy // 정확도순
+    case recency // 최신순
 }

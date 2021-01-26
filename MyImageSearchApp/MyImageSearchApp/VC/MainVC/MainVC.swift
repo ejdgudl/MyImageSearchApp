@@ -14,6 +14,8 @@ class MainVC: UIViewController {
 
     // MARK: - Properties
     
+    var kakaoService: KakaoServiceable
+    
     private var documents: [Document]? {
         didSet {
             collectionView.reloadData()
@@ -57,12 +59,21 @@ class MainVC: UIViewController {
     
     // MARK: - Life Cycle
     
+    init(kakaoService: KakaoServiceable) {
+        self.kakaoService = kakaoService
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
         configureNavi()
         configureViews()
-        searchImages(keyward: "콜라")
+        searchImages(keyward: "밀키스")
     }
     
     // MARK: - Actions
@@ -71,10 +82,10 @@ class MainVC: UIViewController {
     // MARK: - Helpers
     
     private func searchImages(keyward: String) {
-        KakaoService.shared.getImages(keyward: keyward) { [weak self] (res) in
+        kakaoService.getImages(keyward: keyward, sort: .accuracy, page: 1) { (res) in
             switch res {
             case .success(let res):
-                self?.documents = res.documents
+                self.documents = res.documents
             case .failure(let err):
                 err.descriptionPrint()
             }

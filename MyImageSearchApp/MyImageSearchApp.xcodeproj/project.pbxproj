@@ -17,6 +17,7 @@
 		D38CE09425BF08DE0044B50B /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38CE09325BF08DE0044B50B /* SearchResult.swift */; };
 		D393F0E925C04E5C00C399F2 /* DetailVCViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D393F0E825C04E5C00C399F2 /* DetailVCViewModel.swift */; };
 		D393F0EE25C051ED00C399F2 /* ImageCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D393F0ED25C051ED00C399F2 /* ImageCellViewModel.swift */; };
+		D393F0F625C05F8000C399F2 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D393F0F525C05F8000C399F2 /* SampleData.swift */; };
 		D3E2BE8C25BF2B7C003D0307 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E2BE8B25BF2B7C003D0307 /* ImageCell.swift */; };
 		D3E2BE9625BF3418003D0307 /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E2BE9525BF3418003D0307 /* DetailVC.swift */; };
 /* End PBXBuildFile section */
@@ -36,6 +37,7 @@
 		D38CE09325BF08DE0044B50B /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		D393F0E825C04E5C00C399F2 /* DetailVCViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVCViewModel.swift; sourceTree = "<group>"; };
 		D393F0ED25C051ED00C399F2 /* ImageCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCellViewModel.swift; sourceTree = "<group>"; };
+		D393F0F525C05F8000C399F2 /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 		D3E2BE8B25BF2B7C003D0307 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		D3E2BE9525BF3418003D0307 /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -123,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				D38CE08F25BF040C0044B50B /* KakaoService.swift */,
+				D393F0F525C05F8000C399F2 /* SampleData.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 				D36F610225BF024B00F1FF4C /* MainVC.swift in Sources */,
 				D38CE09025BF040C0044B50B /* KakaoService.swift in Sources */,
 				D393F0E925C04E5C00C399F2 /* DetailVCViewModel.swift in Sources */,
+				D393F0F625C05F8000C399F2 /* SampleData.swift in Sources */,
 				D38CE09425BF08DE0044B50B /* SearchResult.swift in Sources */,
 				D36F60FE25BF024B00F1FF4C /* AppDelegate.swift in Sources */,
 				D393F0EE25C051ED00C399F2 /* ImageCellViewModel.swift in Sources */,
