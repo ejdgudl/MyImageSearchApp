@@ -15,7 +15,7 @@ class SampleData {
                 {
                     "collection": "blog",
                     "datetime": "",
-                    "display_sitename": "네이버블로그",
+                    "display_sitename": "네이버블로그네이버블로그네이버블로그네이버블로그네이버블로그네이버블로그네이버블로그네이버블로그네이버블로그네이버블로그네이버블로그",
                     "doc_url": "http://blog.naver.com/peoplenyahoo/30133130889",
                     "height": 451,
                     "image_url": "http://postfiles13.naver.net/20120306_236/choco6474_1331020222858cGYaT_JPEG/%C4%DD%B6%F3_%BE%F3%B8%AE%C1%F6_%B8%B6%BC%BC%BF%E4_%282%29.JPG?type=w3",

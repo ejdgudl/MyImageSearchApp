@@ -29,6 +29,8 @@ class DetailVC: UIViewController {
     private lazy var bottomSubLabel: UILabel = {
         let label = UILabel()
         label.text = viewModel.bottomSubLableText
+        label.numberOfLines = 1
+        label.textAlignment = .center
         return label
     }()
     
@@ -92,6 +94,7 @@ class DetailVC: UIViewController {
         
         bottomSubLabel.snp.makeConstraints { (make) in
             make.bottom.equalToSuperview()
+            make.width.equalTo(UIScreen.main.bounds.width)
             make.centerX.equalToSuperview()
         }
     }
