@@ -78,14 +78,16 @@ class MainVC: UIViewController {
     // MARK: - Helpers
     
     private func searchImages(keyward: String, page: Int = 1, completion: @escaping ([Document]) -> ()) {
-        kakaoService.getImages(keyward: keyward, sort: .accuracy, page: page) { (res) in
+        kakaoService.getImages(keyward: keyward, sort: .accuracy, page: page) { [weak self] (res) in
             switch res {
             case .success(let res):
-                self.isEnd = res.meta.isEnd
+                self?.isEnd = res.meta.isEnd
+                if res.documents.count == 0 {
+                    AlertManager.shared.noResult(vc: self!)
+                }
                 completion(res.documents)
             case .failure(let err):
-                self.documents = nil
-                err.descriptionPrint()
+                print(err.errorDescription)
             }
         }
     }
