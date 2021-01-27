@@ -51,6 +51,9 @@ class MainVC: UIViewController {
     
     private var searchHistory = ""
     
+    private var page = 0
+    private var isEnd = false
+    
     // MARK: - Life Cycle
     
     init(kakaoService: KakaoServiceable) {
@@ -74,13 +77,14 @@ class MainVC: UIViewController {
     
     // MARK: - Helpers
     
-    private func searchImages(keyward: String, completion: @escaping () -> ()) {
-        kakaoService.getImages(keyward: keyward, sort: .accuracy, page: 1) { (res) in
+    private func searchImages(keyward: String, page: Int = 1, completion: @escaping ([Document]) -> ()) {
+        kakaoService.getImages(keyward: keyward, sort: .accuracy, page: page) { (res) in
             switch res {
             case .success(let res):
-                self.documents = res.documents
-                completion()
+                self.isEnd = res.meta.isEnd
+                completion(res.documents)
             case .failure(let err):
+                self.documents = nil
                 err.descriptionPrint()
             }
         }
@@ -100,6 +104,7 @@ class MainVC: UIViewController {
     private func configureNavi() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: navigationTtileButton)
         navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
     
     // MARK: - ConfigureViews
@@ -127,6 +132,18 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: imageCellID, for: indexPath) as? ImageCell else { return UICollectionViewCell() }
         guard let document = documents?[indexPath.row] else { return UICollectionViewCell() }
         cell.viewModel = ImageCellViewModel(document: document)
+        
+        /// Paging
+        let count = documents?.count ?? 0
+        if indexPath.item == count - 1 && !isEnd {
+            page += 1
+            searchImages(keyward: searchHistory, page: page) { [weak self] documents in
+                documents.forEach {
+                    self?.documents?.append($0)
+                }
+            }
+        }
+        
         return cell
     }
     
@@ -168,7 +185,7 @@ extension MainVC: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
         
-        guard searchHistory != searchController.searchBar.searchTextField.text else {
+        guard searchController.searchBar.searchTextField.text != "" else {
             return
         }
         
@@ -184,7 +201,9 @@ extension MainVC: UISearchResultsUpdating {
             guard let text = self?.searchController.searchBar.searchTextField.text else { return }
             
             // request
-            self?.searchImages(keyward: text, completion: {
+            self?.searchImages(keyward: text, completion: { documents in
+                self?.documents = documents
+                self?.page = 1
                 self?.searchController.isActive = false
             })
             
