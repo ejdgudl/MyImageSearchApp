@@ -104,7 +104,6 @@ class MainVC: UIViewController {
     
     private func configureNavi() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: navigationTtileButton)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: searchBarButton)
         navigationItem.searchController = searchController
     }
     

@@ -28,7 +28,7 @@ class DetailVC: UIViewController {
     
     private lazy var bottomSubLabel: UILabel = {
         let label = UILabel()
-        label.text = viewModel.siteName + viewModel.dateTime
+        label.text = viewModel.bottomSubLableText
         return label
     }()
     
@@ -87,7 +87,6 @@ class DetailVC: UIViewController {
         
         imageView.snp.makeConstraints { (make) in
             make.top.centerX.centerY.width.equalToSuperview()
-            make.height.equalTo(viewModel.document.height)
             make.bottom.equalTo(bottomSubLabel.snp.top)
         }
         

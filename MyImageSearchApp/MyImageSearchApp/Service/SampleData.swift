@@ -14,7 +14,7 @@ class SampleData {
             "documents": [
                 {
                     "collection": "blog",
-                    "datetime": "2012-03-06T21:01:00.000+09:00",
+                    "datetime": "",
                     "display_sitename": "네이버블로그",
                     "doc_url": "http://blog.naver.com/peoplenyahoo/30133130889",
                     "height": 451,
@@ -25,7 +25,7 @@ class SampleData {
                 {
                     "collection": "blog",
                     "datetime": "2013-06-03T14:40:35.000+09:00",
-                    "display_sitename": "티스토리",
+                    "display_sitename": "",
                     "doc_url": "http://gstone.tistory.com/2",
                     "height": 418,
                     "image_url": "http://t1.daumcdn.net/cfile/tistory/0312964251AC2B6804",
@@ -44,8 +44,8 @@ class SampleData {
                 },
                 {
                     "collection": "blog",
-                    "datetime": "2014-04-15T22:42:00.000+09:00",
-                    "display_sitename": "네이버블로그",
+                    "datetime": "",
+                    "display_sitename": "",
                     "doc_url": "http://blog.naver.com/missoo515/70188754241",
                     "height": 560,
                     "image_url": "http://postfiles10.naver.net/20140415_185/missoo515_13975693461875x0MP_JPEG/%C4%DD%B6%F3.jpg?type=w2",
@@ -284,8 +284,8 @@ class SampleData {
                 },
                 {
                     "collection": "blog",
-                    "datetime": "2018-02-08T10:43:00.000+09:00",
-                    "display_sitename": "네이버블로그",
+                    "datetime": "",
+                    "display_sitename": "",
                     "doc_url": "http://blog.naver.com/jinouk82/221203907922",
                     "height": 334,
                     "image_url": "http://blogfiles15.naver.net/20131219_273/fafamama7_1387433145753hXFeU_JPEG/%C1%A6%B7%CE%C4%DD%B6%F3500.jpg",
@@ -294,7 +294,7 @@ class SampleData {
                 },
                 {
                     "collection": "blog",
-                    "datetime": "2016-07-23T14:52:44.000+09:00",
+                    "datetime": "",
                     "display_sitename": "티스토리",
                     "doc_url": "http://cachette.tistory.com/327",
                     "height": 363,
@@ -305,7 +305,7 @@ class SampleData {
                 {
                     "collection": "blog",
                     "datetime": "2013-05-29T12:42:46.000+09:00",
-                    "display_sitename": "티스토리",
+                    "display_sitename": "",
                     "doc_url": "http://ygfunstory.tistory.com/139",
                     "height": 613,
                     "image_url": "http://t1.daumcdn.net/cfile/tistory/2509233551A578BF04",
