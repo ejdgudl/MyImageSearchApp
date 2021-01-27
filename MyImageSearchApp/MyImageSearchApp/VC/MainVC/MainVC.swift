@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-private let imageCellID = "imageCell"
+fileprivate let imageCellID = "imageCell"
 
 class MainVC: UIViewController {
 
@@ -33,16 +33,6 @@ class MainVC: UIViewController {
         return button
     }()
     
-    private lazy var searchBarButton: UIButton = {
-        let button = UIButton()
-        let config = UIImage.SymbolConfiguration(pointSize: 22, weight: .light, scale: .default)
-        let image = UIImage(systemName: "magnifyingglass", withConfiguration: config)
-        button.tintColor = .black
-        button.setImage(image, for: .normal)
-        button.frame.size = CGSize(width: 30, height: 30)
-        return button
-    }()
-    
     private let searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = "Search images"
@@ -56,6 +46,10 @@ class MainVC: UIViewController {
         view.backgroundColor = .white
         return view
     }()
+    
+    private var searchTimer: Timer?
+    
+    private var searchHistory = ""
     
     // MARK: - Life Cycle
     
@@ -73,7 +67,6 @@ class MainVC: UIViewController {
         configure()
         configureNavi()
         configureViews()
-        searchImages(keyward: "밀키스")
     }
     
     // MARK: - Actions
@@ -81,11 +74,12 @@ class MainVC: UIViewController {
     
     // MARK: - Helpers
     
-    private func searchImages(keyward: String) {
+    private func searchImages(keyward: String, completion: @escaping () -> ()) {
         kakaoService.getImages(keyward: keyward, sort: .accuracy, page: 1) { (res) in
             switch res {
             case .success(let res):
                 self.documents = res.documents
+                completion()
             case .failure(let err):
                 err.descriptionPrint()
             }
@@ -98,6 +92,7 @@ class MainVC: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(ImageCell.self, forCellWithReuseIdentifier: imageCellID)
+        searchController.searchResultsUpdater = self
     }
     
     // MARK: - ConfigureNavi
@@ -163,6 +158,38 @@ extension MainVC: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
+    }
+    
+}
+
+// MARK: - UISearch Results Updating
+
+extension MainVC: UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        
+        guard searchHistory != searchController.searchBar.searchTextField.text else {
+            return
+        }
+        
+        searchTimer?.invalidate()
+        print("Timer Start")
+        
+        searchTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [weak self] (timer) in
+            
+            self?.searchTimer?.invalidate()
+            self?.searchHistory = self?.searchController.searchBar.searchTextField.text ?? ""
+            print("Timer End")
+            
+            guard let text = self?.searchController.searchBar.searchTextField.text else { return }
+            
+            // request
+            self?.searchImages(keyward: text, completion: {
+                self?.searchController.isActive = false
+            })
+            
+        })
+        
     }
     
 }
