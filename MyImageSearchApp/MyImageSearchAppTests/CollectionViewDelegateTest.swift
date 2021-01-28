@@ -12,8 +12,6 @@ class CollectionViewDelegateTest: XCTestCase {
 
     var cdv: CollectionViewDelegateValidator!
     
-    var sampleDocuments1: [Document]?
-    
     override func setUpWithError() throws {
         
         cdv = CollectionViewDelegateValidator()

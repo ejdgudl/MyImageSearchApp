@@ -131,11 +131,24 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: imageCellID, for: indexPath) as? ImageCell else { return UICollectionViewCell() }
-        guard let document = documents?[indexPath.row] else { return UICollectionViewCell() }
-        cell.viewModel = ImageCellViewModel(document: document)
-        
-        /// Paging
+        do {
+            return try cellForItem(collectionView: collectionView, documents: documents, indexPath: indexPath, cellID: imageCellID)
+        } catch {
+            print(error.localizedDescription)
+            return UICollectionViewCell()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        do {
+            try presentDetailVC(documents: documents, row: indexPath.row)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    /// Paging
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let count = documents?.count ?? 0
         if indexPath.item == count - 1 && !isEnd {
             page += 1
@@ -144,16 +157,6 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
                     self?.documents?.append($0)
                 }
             }
-        }
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        do {
-            try presentDetailVC(documents: documents, row: indexPath.row)
-        } catch {
-            print(error.localizedDescription)
         }
     }
 

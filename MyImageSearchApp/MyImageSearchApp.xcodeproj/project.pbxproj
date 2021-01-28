@@ -24,6 +24,8 @@
 		D3E2BE9625BF3418003D0307 /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E2BE9525BF3418003D0307 /* DetailVC.swift */; };
 		D3F1F6D125C2FC1E007F632D /* DetailVCPresent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F1F6D025C2FC1E007F632D /* DetailVCPresent.swift */; };
 		D3F1F6D525C2FD2C007F632D /* CollectionViewDelegateTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F1F6D425C2FD2C007F632D /* CollectionViewDelegateTest.swift */; };
+		D3F1F6D925C30443007F632D /* CellForItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F1F6D825C30443007F632D /* CellForItem.swift */; };
+		D3F1F6DF25C3064D007F632D /* CollectionViewDataSourceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F1F6DE25C3064D007F632D /* CollectionViewDataSourceTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,8 @@
 		D3E2BE9525BF3418003D0307 /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
 		D3F1F6D025C2FC1E007F632D /* DetailVCPresent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVCPresent.swift; sourceTree = "<group>"; };
 		D3F1F6D425C2FD2C007F632D /* CollectionViewDelegateTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewDelegateTest.swift; sourceTree = "<group>"; };
+		D3F1F6D825C30443007F632D /* CellForItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellForItem.swift; sourceTree = "<group>"; };
+		D3F1F6DE25C3064D007F632D /* CollectionViewDataSourceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewDataSourceTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,8 +106,9 @@
 			isa = PBXGroup;
 			children = (
 				D31FD49C25C0771300E619C2 /* CodableValideTest.swift */,
-				D31FD49425C076B400E619C2 /* Info.plist */,
 				D3F1F6D425C2FD2C007F632D /* CollectionViewDelegateTest.swift */,
+				D3F1F6DE25C3064D007F632D /* CollectionViewDataSourceTest.swift */,
+				D31FD49425C076B400E619C2 /* Info.plist */,
 			);
 			path = MyImageSearchAppTests;
 			sourceTree = "<group>";
@@ -233,6 +238,7 @@
 		D3F1F6CF25C2FC14007F632D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				D3F1F6D825C30443007F632D /* CellForItem.swift */,
 				D3F1F6D025C2FC1E007F632D /* DetailVCPresent.swift */,
 			);
 			path = Helpers;
@@ -382,6 +388,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3F1F6D525C2FD2C007F632D /* CollectionViewDelegateTest.swift in Sources */,
+				D3F1F6DF25C3064D007F632D /* CollectionViewDataSourceTest.swift in Sources */,
 				D31FD49D25C0771300E619C2 /* CodableValideTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -399,6 +406,7 @@
 				D393F0EE25C051ED00C399F2 /* ImageCellViewModel.swift in Sources */,
 				D36F610025BF024B00F1FF4C /* SceneDelegate.swift in Sources */,
 				D3901FE625C1D7B6004A7328 /* Alert.swift in Sources */,
+				D3F1F6D925C30443007F632D /* CellForItem.swift in Sources */,
 				D3F1F6D125C2FC1E007F632D /* DetailVCPresent.swift in Sources */,
 				D3E2BE8C25BF2B7C003D0307 /* ImageCell.swift in Sources */,
 				D3E2BE9625BF3418003D0307 /* DetailVC.swift in Sources */,
