@@ -150,11 +150,11 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let document = documents?[indexPath.row] else { return }
-        let detailVC = DetailVC(viewModel: DetailVCViewModel(document: document))
-        let nav = UINavigationController(rootViewController: detailVC)
-        nav.modalPresentationStyle = .fullScreen
-        present(nav, animated: true)
+        do {
+            try presentDetailVC(documents: documents, row: indexPath.row)
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 
 }
