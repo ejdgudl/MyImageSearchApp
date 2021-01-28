@@ -98,7 +98,7 @@ class MainVC: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(ImageCell.self, forCellWithReuseIdentifier: imageCellID)
-        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
     }
     
     // MARK: - ConfigureNavi
@@ -184,32 +184,40 @@ extension MainVC: UICollectionViewDelegateFlowLayout {
     
 }
 
-// MARK: - UISearch Results Updating
+// MARK: - UISearchBar Delegate
 
-extension MainVC: UISearchResultsUpdating {
+extension MainVC: UISearchBarDelegate {
     
-    func updateSearchResults(for searchController: UISearchController) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
-        guard searchController.searchBar.searchTextField.text != "" else {
+        searchTimer?.invalidate() // 기존 Timer 무효 ( 1초내 재입력시 )
+        
+        // 빈 문자열이라면 return
+        guard searchBar.searchTextField.text != "" else {
             return
         }
         
-        searchTimer?.invalidate()
-        print("Timer Start")
+        // 최근 request한 query와 현재 textField가 동일 하다면 return
+        guard searchBar.searchTextField.text != searchHistory else {
+            return
+        }
         
+        print("Timer Start")
         searchTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [weak self] (timer) in
             
             self?.searchTimer?.invalidate()
-            self?.searchHistory = self?.searchController.searchBar.searchTextField.text ?? ""
             print("Timer End")
             
-            guard let text = self?.searchController.searchBar.searchTextField.text else { return }
+            guard let text = searchBar.searchTextField.text else { return }
             
             // request
             self?.searchImages(keyward: text, completion: { documents in
                 self?.documents = documents
                 self?.page = 1
+                self?.searchHistory = searchBar.searchTextField.text ?? ""
                 self?.searchController.isActive = false
+                searchBar.searchTextField.text = self?.searchHistory // isActive false시 textField.text 없어짐 방지
+                self?.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
             })
             
         })
