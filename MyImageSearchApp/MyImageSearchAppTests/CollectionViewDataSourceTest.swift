@@ -45,7 +45,7 @@ class CollectionViewDataSourceTest: XCTestCase {
 
 }
 
-// MARK: - CollectionView Delegate Validator
+// MARK: - CollectionView Datasource Validator
 
 class CollectionViewDatasourceValidator {
     

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		B5C811FD7BF495088D779974 /* Pods_MyImageSearchApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6538A7FD7A66DAC7953B2135 /* Pods_MyImageSearchApp.framework */; };
+		D3043CEB25C45839002E5565 /* CheckRequestAble.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3043CEA25C45839002E5565 /* CheckRequestAble.swift */; };
+		D3043D0125C46331002E5565 /* CheckRequestAbleTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3043D0025C46331002E5565 /* CheckRequestAbleTest.swift */; };
 		D31FD49D25C0771300E619C2 /* CodableValideTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31FD49C25C0771300E619C2 /* CodableValideTest.swift */; };
 		D36F60FE25BF024B00F1FF4C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36F60FD25BF024B00F1FF4C /* AppDelegate.swift */; };
 		D36F610025BF024B00F1FF4C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36F60FF25BF024B00F1FF4C /* SceneDelegate.swift */; };
@@ -42,6 +44,8 @@
 		1F77DDB307DA04175741FE92 /* Pods-MyImageSearchApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyImageSearchApp.debug.xcconfig"; path = "Target Support Files/Pods-MyImageSearchApp/Pods-MyImageSearchApp.debug.xcconfig"; sourceTree = "<group>"; };
 		6538A7FD7A66DAC7953B2135 /* Pods_MyImageSearchApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyImageSearchApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		74404817B393DA101FE02D4F /* Pods-MyImageSearchApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyImageSearchApp.release.xcconfig"; path = "Target Support Files/Pods-MyImageSearchApp/Pods-MyImageSearchApp.release.xcconfig"; sourceTree = "<group>"; };
+		D3043CEA25C45839002E5565 /* CheckRequestAble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckRequestAble.swift; sourceTree = "<group>"; };
+		D3043D0025C46331002E5565 /* CheckRequestAbleTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckRequestAbleTest.swift; sourceTree = "<group>"; };
 		D31FD49025C076B400E619C2 /* MyImageSearchAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyImageSearchAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D31FD49425C076B400E619C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D31FD49C25C0771300E619C2 /* CodableValideTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableValideTest.swift; sourceTree = "<group>"; };
@@ -108,6 +112,7 @@
 				D31FD49C25C0771300E619C2 /* CodableValideTest.swift */,
 				D3F1F6D425C2FD2C007F632D /* CollectionViewDelegateTest.swift */,
 				D3F1F6DE25C3064D007F632D /* CollectionViewDataSourceTest.swift */,
+				D3043D0025C46331002E5565 /* CheckRequestAbleTest.swift */,
 				D31FD49425C076B400E619C2 /* Info.plist */,
 			);
 			path = MyImageSearchAppTests;
@@ -240,6 +245,7 @@
 			children = (
 				D3F1F6D825C30443007F632D /* CellForItem.swift */,
 				D3F1F6D025C2FC1E007F632D /* DetailVCPresent.swift */,
+				D3043CEA25C45839002E5565 /* CheckRequestAble.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -387,6 +393,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3043D0125C46331002E5565 /* CheckRequestAbleTest.swift in Sources */,
 				D3F1F6D525C2FD2C007F632D /* CollectionViewDelegateTest.swift in Sources */,
 				D3F1F6DF25C3064D007F632D /* CollectionViewDataSourceTest.swift in Sources */,
 				D31FD49D25C0771300E619C2 /* CodableValideTest.swift in Sources */,
@@ -403,6 +410,7 @@
 				D393F0F625C05F8000C399F2 /* SampleData.swift in Sources */,
 				D38CE09425BF08DE0044B50B /* SearchResult.swift in Sources */,
 				D36F60FE25BF024B00F1FF4C /* AppDelegate.swift in Sources */,
+				D3043CEB25C45839002E5565 /* CheckRequestAble.swift in Sources */,
 				D393F0EE25C051ED00C399F2 /* ImageCellViewModel.swift in Sources */,
 				D36F610025BF024B00F1FF4C /* SceneDelegate.swift in Sources */,
 				D3901FE625C1D7B6004A7328 /* Alert.swift in Sources */,

@@ -9,4 +9,5 @@ target 'MyImageSearchApp' do
     pod 'Alamofire'
     pod 'SnapKit'
     pod 'Kingfisher'
+    pod 'RxSwift'
 end

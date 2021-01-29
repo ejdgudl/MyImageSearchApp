@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import RxSwift
 
 fileprivate let imageCellID = "imageCell"
 
@@ -33,7 +34,7 @@ class MainVC: UIViewController {
         return button
     }()
     
-    private let searchController: UISearchController = {
+    let searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = "Search images"
         return searchController
@@ -47,9 +48,9 @@ class MainVC: UIViewController {
         return view
     }()
     
-    private var searchTimer: Timer?
+    private var rxSearchTimer: Disposable?
     
-    private var searchHistory = ""
+    var searchHistory = ""
     
     private var page = 0
     private var isEnd = false
@@ -190,37 +191,35 @@ extension MainVC: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
-        searchTimer?.invalidate() // 기존 Timer 무효 ( 1초내 재입력시 )
+        rxSearchTimer?.dispose()
         
-        // 빈 문자열이라면 return
-        guard searchBar.searchTextField.text != "" else {
-            return
-        }
-        
-        // 최근 request한 query와 현재 textField가 동일 하다면 return
-        guard searchBar.searchTextField.text != searchHistory else {
+        do {
+            try CheckRequestAble()
+        } catch {
+            print(error.localizedDescription)
             return
         }
         
         print("Timer Start")
-        searchTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [weak self] (timer) in
-            
-            self?.searchTimer?.invalidate()
-            print("Timer End")
-            
-            guard let text = searchBar.searchTextField.text else { return }
-            
-            // request
-            self?.searchImages(keyward: text, completion: { documents in
-                self?.documents = documents
-                self?.page = 1
-                self?.searchHistory = searchBar.searchTextField.text ?? ""
-                self?.searchController.isActive = false
-                searchBar.searchTextField.text = self?.searchHistory // isActive false시 textField.text 없어짐 방지
-                self?.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+        rxSearchTimer = Observable<Int>
+            .interval(RxTimeInterval.seconds(1), scheduler: MainScheduler.instance)
+            .subscribe({ (time) in
+                
+                self.rxSearchTimer?.dispose()
+                print("Timer End")
+                
+                guard let text = searchBar.searchTextField.text else { return }
+                
+                // request
+                self.searchImages(keyward: text, completion: { documents in
+                    self.documents = documents
+                    self.page = 1
+                    self.searchHistory = searchBar.searchTextField.text ?? ""
+                    self.searchController.isActive = false
+                    searchBar.searchTextField.text = self.searchHistory // isActive false시 textField.text 없어짐 방지
+                    self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+                })
             })
-            
-        })
         
     }
     
