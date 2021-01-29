@@ -55,7 +55,7 @@ class CheckRequestAbleValidator {
         }
         
         guard query != history else {
-            throw CheckRequestAbleError.dontNeedRequest
+            throw CheckRequestAbleError.dontNeedToRequest
         }
         
     }

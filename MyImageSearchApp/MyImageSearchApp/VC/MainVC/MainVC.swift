@@ -17,7 +17,7 @@ class MainVC: UIViewController {
     
     var kakaoService: KakaoServiceable
     
-    private var documents: [Document]? {
+    var documents: [Document]? {
         didSet {
             collectionView.reloadData()
         }
@@ -48,7 +48,7 @@ class MainVC: UIViewController {
         return view
     }()
     
-    private var rxSearchTimer: Disposable?
+    var rxSearchTimer: Disposable?
     
     var searchHistory = ""
     
@@ -194,9 +194,9 @@ extension MainVC: UISearchBarDelegate {
         rxSearchTimer?.dispose()
         
         do {
-            try CheckRequestAble()
+            try checkRequestAble()
         } catch {
-            print(error.localizedDescription)
+            print((error as! CheckRequestAbleError).errorDescription)
             return
         }
         

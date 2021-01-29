@@ -6,21 +6,26 @@
 //
 
 import Foundation
+import RxSwift
 
 // MARK: - Check Request Able Error
 
 enum CheckRequestAbleError: Error {
     
     case noText
-    case dontNeedRequest
+    case dontNeedToRequest
     
     var errorDescription: String {
         switch self {
         case .noText:
-            return "--Textfield.text is--"
-        case .dontNeedRequest:
-            return "--Don't need Request--"
+            return "--Textfield.text is empty--"
+        case .dontNeedToRequest:
+            return "--Don't need to Request--"
         }
+    }
+    
+    func descriptionPrint() {
+        print(errorDescription)
     }
 
 }
@@ -29,14 +34,25 @@ enum CheckRequestAbleError: Error {
 
 extension MainVC {
 
-    func CheckRequestAble() throws {
+    func checkRequestAble() throws {
         
         guard searchController.searchBar.searchTextField.text != "" else {
+            
+            rxSearchTimer = Observable<Int>
+                .interval(RxTimeInterval.seconds(1), scheduler: MainScheduler.instance)
+                .subscribe({ (time) in
+                    
+                    self.rxSearchTimer?.dispose()
+                    print("Timer End")
+                    self.searchHistory = ""
+                    self.documents?.removeAll()
+                })
             throw CheckRequestAbleError.noText
+            
         }
         
         guard searchController.searchBar.searchTextField.text != searchHistory else {
-            throw CheckRequestAbleError.dontNeedRequest
+            throw CheckRequestAbleError.dontNeedToRequest
         }
         
     }
