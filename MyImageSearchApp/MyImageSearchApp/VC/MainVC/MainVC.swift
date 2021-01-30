@@ -11,6 +11,7 @@ import RxSwift
 import RxRelay
 
 fileprivate let imageCellID = "imageCell"
+fileprivate let headerCellID = "headerCell"
 
 class MainVC: UIViewController {
 
@@ -127,6 +128,7 @@ class MainVC: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(ImageCell.self, forCellWithReuseIdentifier: imageCellID)
+        collectionView.register(CollectionHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerCellID)
         searchController.searchBar.delegate = self
     }
     
@@ -188,7 +190,23 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
             }
         }
     }
-
+    
+    // Header
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerCellID, for: indexPath) as? CollectionHeaderCell else { return UICollectionReusableView() }
+        if documents == nil || searchController.searchBar.searchTextField.text == "" {
+            cell.label.text = "검색어를 입력해 주세요"
+        } else if documents?.count == 0 {
+            cell.label.text = "연관검색어가 없습니다"
+        }
+        return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        let invisibleHeaderSize = CGSize(width: 0, height: 0)
+        let visibleHeaderSize = CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+        guard let documentsCount = documents?.count else { return visibleHeaderSize }
+        return documentsCount > 0 ? invisibleHeaderSize : visibleHeaderSize
+    }
 }
 
 // MARK: - UICollectionView DelegateFlowLayout

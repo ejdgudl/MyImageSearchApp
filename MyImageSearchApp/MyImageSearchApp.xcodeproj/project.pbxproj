@@ -11,6 +11,7 @@
 		D3043CEB25C45839002E5565 /* CheckRequestAble.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3043CEA25C45839002E5565 /* CheckRequestAble.swift */; };
 		D3043D0125C46331002E5565 /* CheckRequestAbleTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3043D0025C46331002E5565 /* CheckRequestAbleTest.swift */; };
 		D31FD49D25C0771300E619C2 /* CodableValideTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31FD49C25C0771300E619C2 /* CodableValideTest.swift */; };
+		D3230F3125C5C15E00AA4E30 /* HeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3230F3025C5C15E00AA4E30 /* HeaderCell.swift */; };
 		D36F60FE25BF024B00F1FF4C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36F60FD25BF024B00F1FF4C /* AppDelegate.swift */; };
 		D36F610025BF024B00F1FF4C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36F60FF25BF024B00F1FF4C /* SceneDelegate.swift */; };
 		D36F610225BF024B00F1FF4C /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36F610125BF024B00F1FF4C /* MainVC.swift */; };
@@ -49,6 +50,7 @@
 		D31FD49025C076B400E619C2 /* MyImageSearchAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyImageSearchAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D31FD49425C076B400E619C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D31FD49C25C0771300E619C2 /* CodableValideTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableValideTest.swift; sourceTree = "<group>"; };
+		D3230F3025C5C15E00AA4E30 /* HeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCell.swift; sourceTree = "<group>"; };
 		D36F60FA25BF024B00F1FF4C /* MyImageSearchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyImageSearchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D36F60FD25BF024B00F1FF4C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D36F60FF25BF024B00F1FF4C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 			isa = PBXGroup;
 			children = (
 				D3E2BE8B25BF2B7C003D0307 /* ImageCell.swift */,
+				D3230F3025C5C15E00AA4E30 /* HeaderCell.swift */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -405,6 +408,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D36F610225BF024B00F1FF4C /* MainVC.swift in Sources */,
+				D3230F3125C5C15E00AA4E30 /* HeaderCell.swift in Sources */,
 				D38CE09025BF040C0044B50B /* KakaoService.swift in Sources */,
 				D393F0E925C04E5C00C399F2 /* DetailVCViewModel.swift in Sources */,
 				D393F0F625C05F8000C399F2 /* SampleData.swift in Sources */,
