@@ -15,10 +15,11 @@ final class AlertManager {
     
     // MARK: - 검색 결과 없음
     
-    func noResult(vc: UIViewController) {
+    func noResult(vc: UIViewController, completion: @escaping () -> ()) {
         let alert = UIAlertController(title: "검색 결과 없음", message: "검색어를 확인해 주세요", preferredStyle: .alert)
-        let ok = UIAlertAction(title: "닫기", style: .cancel)
-        
+        let ok = UIAlertAction(title: "닫기", style: .cancel) { (_) in
+            completion()
+        }
         alert.addAction(ok)
         vc.present(alert, animated: true)
     }

@@ -8,8 +8,10 @@
 import UIKit
 import SnapKit
 import RxSwift
+import RxCocoa
 
 fileprivate let imageCellID = "imageCell"
+fileprivate let headerCellID = "headerCell"
 
 class MainVC: UIViewController {
 
@@ -48,12 +50,12 @@ class MainVC: UIViewController {
         return view
     }()
     
-    var rxSearchTimer: Disposable?
-    
     var searchHistory = ""
     
     private var page = 0
     private var isEnd = false
+    
+    private var bag = DisposeBag()
     
     // MARK: - Life Cycle
     
@@ -71,6 +73,8 @@ class MainVC: UIViewController {
         configure()
         configureNavi()
         configureViews()
+        
+        subscribeTextField()
     }
     
     // MARK: - Actions
@@ -78,13 +82,47 @@ class MainVC: UIViewController {
     
     // MARK: - Helpers
     
+    private func subscribeTextField() {
+        
+        let tf = searchController.searchBar.searchTextField
+        
+        tf.rx.controlEvent(.editingChanged)
+            .asObservable()
+            .debounce(RxTimeInterval.seconds(1), scheduler: MainScheduler.instance)
+            .map { tf.text }
+            .filter { $0 != nil }
+            .map { $0! }
+            .subscribe(onNext: { [weak self] text in
+                
+                do {
+                    try self?.checkRequestAble()
+                } catch {
+                    print((error as! CheckRequestAbleError).errorDescription)
+                    return
+                }
+                
+                // request
+                self?.searchImages(keyward: text, completion: { documents in
+                    self?.documents = documents
+                    self?.page = 1
+                    self?.searchHistory = text
+                    self?.searchController.isActive = false
+                    self?.searchController.searchBar.searchTextField.text = self?.searchHistory // isActive false시 textField.text 없어짐 방지
+                    self?.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+                })
+                
+            }).disposed(by: bag)
+    }
+    
     private func searchImages(keyward: String, page: Int = 1, completion: @escaping ([Document]) -> ()) {
         kakaoService.getImages(keyward: keyward, sort: .accuracy, page: page) { [weak self] (res) in
             switch res {
             case .success(let res):
                 self?.isEnd = res.meta.isEnd
                 if res.documents.count == 0 {
-                    AlertManager.shared.noResult(vc: self!)
+                    AlertManager.shared.noResult(vc: self!) {
+                        self?.searchController.searchBar.searchTextField.becomeFirstResponder()
+                    }
                 }
                 completion(res.documents)
             case .failure(let err):
@@ -99,7 +137,7 @@ class MainVC: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(ImageCell.self, forCellWithReuseIdentifier: imageCellID)
-        searchController.searchBar.delegate = self
+        collectionView.register(CollectionHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerCellID)
     }
     
     // MARK: - ConfigureNavi
@@ -160,7 +198,23 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
             }
         }
     }
-
+    
+    // Header
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerCellID, for: indexPath) as? CollectionHeaderCell else { return UICollectionReusableView() }
+        if documents == nil || searchController.searchBar.searchTextField.text == "" {
+            cell.label.text = "검색어를 입력해 주세요"
+        } else if documents?.count == 0 {
+            cell.label.text = "연관검색어가 없습니다"
+        }
+        return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        let invisibleHeaderSize = CGSize(width: 0, height: 0)
+        let visibleHeaderSize = CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+        guard let documentsCount = documents?.count else { return visibleHeaderSize }
+        return documentsCount > 0 ? invisibleHeaderSize : visibleHeaderSize
+    }
 }
 
 // MARK: - UICollectionView DelegateFlowLayout
@@ -181,46 +235,6 @@ extension MainVC: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
-    }
-    
-}
-
-// MARK: - UISearchBar Delegate
-
-extension MainVC: UISearchBarDelegate {
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-        rxSearchTimer?.dispose()
-        
-        do {
-            try checkRequestAble()
-        } catch {
-            print((error as! CheckRequestAbleError).errorDescription)
-            return
-        }
-        
-        print("Timer Start")
-        rxSearchTimer = Observable<Int>
-            .interval(RxTimeInterval.seconds(1), scheduler: MainScheduler.instance)
-            .subscribe({ (time) in
-                
-                self.rxSearchTimer?.dispose()
-                print("Timer End")
-                
-                guard let text = searchBar.searchTextField.text else { return }
-                
-                // request
-                self.searchImages(keyward: text, completion: { documents in
-                    self.documents = documents
-                    self.page = 1
-                    self.searchHistory = searchBar.searchTextField.text ?? ""
-                    self.searchController.isActive = false
-                    searchBar.searchTextField.text = self.searchHistory // isActive false시 textField.text 없어짐 방지
-                    self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
-                })
-            })
-        
     }
     
 }
