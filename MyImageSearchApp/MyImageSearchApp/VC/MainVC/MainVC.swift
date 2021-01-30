@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 import RxSwift
-import RxRelay
+import RxCocoa
 
 fileprivate let imageCellID = "imageCell"
 fileprivate let headerCellID = "headerCell"
@@ -56,7 +56,6 @@ class MainVC: UIViewController {
     private var isEnd = false
     
     private var bag = DisposeBag()
-    private let publishRelay = PublishRelay<String>()
     
     // MARK: - Life Cycle
     
@@ -74,7 +73,8 @@ class MainVC: UIViewController {
         configure()
         configureNavi()
         configureViews()
-        subscribeRelay()
+        
+        subscribeTextField()
     }
     
     // MARK: - Actions
@@ -82,29 +82,36 @@ class MainVC: UIViewController {
     
     // MARK: - Helpers
     
-    private func subscribeRelay() {
-        publishRelay
+    private func subscribeTextField() {
+        
+        let tf = searchController.searchBar.searchTextField
+        
+        tf.rx.controlEvent(.editingChanged)
+            .asObservable()
             .debounce(RxTimeInterval.seconds(1), scheduler: MainScheduler.instance)
-            .subscribe(onNext: { (text) in
+            .map { tf.text }
+            .filter { $0 != nil }
+            .map { $0! }
+            .subscribe(onNext: { [weak self] text in
                 
                 do {
-                    try self.checkRequestAble()
+                    try self?.checkRequestAble()
                 } catch {
                     print((error as! CheckRequestAbleError).errorDescription)
                     return
                 }
                 
                 // request
-                self.searchImages(keyward: text, completion: { documents in
-                    self.documents = documents
-                    self.page = 1
-                    self.searchHistory = text
-                    self.searchController.isActive = false
-                    self.searchController.searchBar.searchTextField.text = self.searchHistory // isActive false시 textField.text 없어짐 방지
-                    self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+                self?.searchImages(keyward: text, completion: { documents in
+                    self?.documents = documents
+                    self?.page = 1
+                    self?.searchHistory = text
+                    self?.searchController.isActive = false
+                    self?.searchController.searchBar.searchTextField.text = self?.searchHistory // isActive false시 textField.text 없어짐 방지
+                    self?.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
                 })
-            })
-            .disposed(by: bag)
+                
+            }).disposed(by: bag)
     }
     
     private func searchImages(keyward: String, page: Int = 1, completion: @escaping ([Document]) -> ()) {
@@ -113,7 +120,9 @@ class MainVC: UIViewController {
             case .success(let res):
                 self?.isEnd = res.meta.isEnd
                 if res.documents.count == 0 {
-                    AlertManager.shared.noResult(vc: self!)
+                    AlertManager.shared.noResult(vc: self!) {
+                        self?.searchController.searchBar.searchTextField.becomeFirstResponder()
+                    }
                 }
                 completion(res.documents)
             case .failure(let err):
@@ -129,7 +138,6 @@ class MainVC: UIViewController {
         collectionView.delegate = self
         collectionView.register(ImageCell.self, forCellWithReuseIdentifier: imageCellID)
         collectionView.register(CollectionHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerCellID)
-        searchController.searchBar.delegate = self
     }
     
     // MARK: - ConfigureNavi
@@ -227,19 +235,6 @@ extension MainVC: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
-    }
-    
-}
-
-// MARK: - UISearchBar Delegate
-
-extension MainVC: UISearchBarDelegate {
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-      
-        publishRelay
-            .accept(searchText)
-        
     }
     
 }
