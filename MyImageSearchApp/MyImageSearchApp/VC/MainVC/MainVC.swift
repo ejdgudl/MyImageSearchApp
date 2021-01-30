@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import RxSwift
+import RxRelay
 
 fileprivate let imageCellID = "imageCell"
 
@@ -48,12 +49,13 @@ class MainVC: UIViewController {
         return view
     }()
     
-    var rxSearchTimer: Disposable?
-    
     var searchHistory = ""
     
     private var page = 0
     private var isEnd = false
+    
+    private var bag = DisposeBag()
+    private let publishRelay = PublishRelay<String>()
     
     // MARK: - Life Cycle
     
@@ -71,12 +73,38 @@ class MainVC: UIViewController {
         configure()
         configureNavi()
         configureViews()
+        subscribeRelay()
     }
     
     // MARK: - Actions
     
     
     // MARK: - Helpers
+    
+    private func subscribeRelay() {
+        publishRelay
+            .debounce(RxTimeInterval.seconds(1), scheduler: MainScheduler.instance)
+            .subscribe(onNext: { (text) in
+                
+                do {
+                    try self.checkRequestAble()
+                } catch {
+                    print((error as! CheckRequestAbleError).errorDescription)
+                    return
+                }
+                
+                // request
+                self.searchImages(keyward: text, completion: { documents in
+                    self.documents = documents
+                    self.page = 1
+                    self.searchHistory = text
+                    self.searchController.isActive = false
+                    self.searchController.searchBar.searchTextField.text = self.searchHistory // isActive false시 textField.text 없어짐 방지
+                    self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+                })
+            })
+            .disposed(by: bag)
+    }
     
     private func searchImages(keyward: String, page: Int = 1, completion: @escaping ([Document]) -> ()) {
         kakaoService.getImages(keyward: keyward, sort: .accuracy, page: page) { [weak self] (res) in
@@ -190,36 +218,9 @@ extension MainVC: UICollectionViewDelegateFlowLayout {
 extension MainVC: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-        rxSearchTimer?.dispose()
-        
-        do {
-            try checkRequestAble()
-        } catch {
-            print((error as! CheckRequestAbleError).errorDescription)
-            return
-        }
-        
-        print("Timer Start")
-        rxSearchTimer = Observable<Int>
-            .interval(RxTimeInterval.seconds(1), scheduler: MainScheduler.instance)
-            .subscribe({ (time) in
-                
-                self.rxSearchTimer?.dispose()
-                print("Timer End")
-                
-                guard let text = searchBar.searchTextField.text else { return }
-                
-                // request
-                self.searchImages(keyward: text, completion: { documents in
-                    self.documents = documents
-                    self.page = 1
-                    self.searchHistory = searchBar.searchTextField.text ?? ""
-                    self.searchController.isActive = false
-                    searchBar.searchTextField.text = self.searchHistory // isActive false시 textField.text 없어짐 방지
-                    self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
-                })
-            })
+      
+        publishRelay
+            .accept(searchText)
         
     }
     

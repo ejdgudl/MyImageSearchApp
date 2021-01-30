@@ -37,18 +37,9 @@ extension MainVC {
     func checkRequestAble() throws {
         
         guard searchController.searchBar.searchTextField.text != "" else {
-            
-            rxSearchTimer = Observable<Int>
-                .interval(RxTimeInterval.seconds(1), scheduler: MainScheduler.instance)
-                .subscribe({ (time) in
-                    
-                    self.rxSearchTimer?.dispose()
-                    print("Timer End")
-                    self.searchHistory = ""
-                    self.documents?.removeAll()
-                })
+            self.searchHistory = ""
+            self.documents?.removeAll()
             throw CheckRequestAbleError.noText
-            
         }
         
         guard searchController.searchBar.searchTextField.text != searchHistory else {
