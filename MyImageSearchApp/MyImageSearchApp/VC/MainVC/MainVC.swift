@@ -36,6 +36,14 @@ class MainVC: UIViewController {
         return button
     }()
     
+    private lazy var navigationSortButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "list.dash"), for: .normal)
+        button.tintColor = .black
+        button.addTarget(self, action: #selector(didTapSortButton), for: .touchUpInside)
+        return button
+    }()
+    
     let searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = "Search images"
@@ -79,6 +87,11 @@ class MainVC: UIViewController {
     
     // MARK: - Actions
     
+    @objc private func didTapSortButton() {
+        let popUpVC = PopUpVC()
+        popUpVC.modalPresentationStyle = .overFullScreen
+        present(popUpVC, animated: true)
+    }
     
     // MARK: - Helpers
     
@@ -153,6 +166,7 @@ class MainVC: UIViewController {
     
     private func configureNavi() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: navigationTtileButton)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: navigationSortButton)
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
     }

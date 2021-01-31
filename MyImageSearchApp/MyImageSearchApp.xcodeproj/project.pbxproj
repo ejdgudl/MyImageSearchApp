@@ -12,6 +12,8 @@
 		D3043D0125C46331002E5565 /* CheckRequestAbleTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3043D0025C46331002E5565 /* CheckRequestAbleTest.swift */; };
 		D31FD49D25C0771300E619C2 /* CodableValideTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31FD49C25C0771300E619C2 /* CodableValideTest.swift */; };
 		D3230F3125C5C15E00AA4E30 /* HeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3230F3025C5C15E00AA4E30 /* HeaderCell.swift */; };
+		D32717D825C6A1680094283F /* PopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32717D725C6A1680094283F /* PopUpVC.swift */; };
+		D32717DD25C6A1BD0094283F /* SortButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32717DC25C6A1BD0094283F /* SortButton.swift */; };
 		D36F60FE25BF024B00F1FF4C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36F60FD25BF024B00F1FF4C /* AppDelegate.swift */; };
 		D36F610025BF024B00F1FF4C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36F60FF25BF024B00F1FF4C /* SceneDelegate.swift */; };
 		D36F610225BF024B00F1FF4C /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36F610125BF024B00F1FF4C /* MainVC.swift */; };
@@ -51,6 +53,8 @@
 		D31FD49425C076B400E619C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D31FD49C25C0771300E619C2 /* CodableValideTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableValideTest.swift; sourceTree = "<group>"; };
 		D3230F3025C5C15E00AA4E30 /* HeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCell.swift; sourceTree = "<group>"; };
+		D32717D725C6A1680094283F /* PopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpVC.swift; sourceTree = "<group>"; };
+		D32717DC25C6A1BD0094283F /* SortButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortButton.swift; sourceTree = "<group>"; };
 		D36F60FA25BF024B00F1FF4C /* MyImageSearchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyImageSearchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D36F60FD25BF024B00F1FF4C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D36F60FF25BF024B00F1FF4C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -120,6 +124,23 @@
 			path = MyImageSearchAppTests;
 			sourceTree = "<group>";
 		};
+		D32717D625C6A1580094283F /* PopUpVC */ = {
+			isa = PBXGroup;
+			children = (
+				D32717D725C6A1680094283F /* PopUpVC.swift */,
+				D32717DB25C6A1B30094283F /* View */,
+			);
+			path = PopUpVC;
+			sourceTree = "<group>";
+		};
+		D32717DB25C6A1B30094283F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D32717DC25C6A1BD0094283F /* SortButton.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		D36F60F125BF024B00F1FF4C = {
 			isa = PBXGroup;
 			children = (
@@ -167,6 +188,7 @@
 		D36F611425BF030500F1FF4C /* VC */ = {
 			isa = PBXGroup;
 			children = (
+				D32717D625C6A1580094283F /* PopUpVC */,
 				D3E2BE9325BF3400003D0307 /* MainVC */,
 				D3E2BE9425BF340A003D0307 /* DetailVC */,
 			);
@@ -412,6 +434,7 @@
 				D38CE09025BF040C0044B50B /* KakaoService.swift in Sources */,
 				D393F0E925C04E5C00C399F2 /* DetailVCViewModel.swift in Sources */,
 				D393F0F625C05F8000C399F2 /* SampleData.swift in Sources */,
+				D32717D825C6A1680094283F /* PopUpVC.swift in Sources */,
 				D38CE09425BF08DE0044B50B /* SearchResult.swift in Sources */,
 				D36F60FE25BF024B00F1FF4C /* AppDelegate.swift in Sources */,
 				D3043CEB25C45839002E5565 /* CheckRequestAble.swift in Sources */,
@@ -422,6 +445,7 @@
 				D3F1F6D125C2FC1E007F632D /* DetailVCPresent.swift in Sources */,
 				D3E2BE8C25BF2B7C003D0307 /* ImageCell.swift in Sources */,
 				D3E2BE9625BF3418003D0307 /* DetailVC.swift in Sources */,
+				D32717DD25C6A1BD0094283F /* SortButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
