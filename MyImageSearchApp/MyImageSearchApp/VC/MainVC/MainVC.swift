@@ -98,6 +98,14 @@ class MainVC: UIViewController {
     
     // MARK: - Helpers
     
+    private func checkDocumentsCount(searchResult: SearchResult) {
+        if searchResult.documents.count == 0 {
+            AlertManager.shared.noResult(vc: self) { [ weak self] in
+                self?.searchController.searchBar.searchTextField.becomeFirstResponder()
+            }
+        }
+    }
+    
     private func scrollToTop() {
         collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
     }
@@ -124,6 +132,7 @@ class MainVC: UIViewController {
                 // Observable create and subscribe { type is SearchResult }
                 self?.kakaoService.getImagesWithRX(keyward: text, sort: self!.sortType, page: 1)
                     .subscribe(onNext: { (searchResult) in
+                        self?.checkDocumentsCount(searchResult: searchResult)
                         self?.documents = searchResult.documents
                         self?.page = 1
                         self?.searchHistory = text
@@ -148,11 +157,7 @@ class MainVC: UIViewController {
             switch res {
             case .success(let res):
                 self?.isEnd = res.meta.isEnd
-                if res.documents.count == 0 {
-                    AlertManager.shared.noResult(vc: self!) {
-                        self?.searchController.searchBar.searchTextField.becomeFirstResponder()
-                    }
-                }
+                self?.checkDocumentsCount(searchResult: res)
                 completion(res.documents)
             case .failure(let err):
                 print(err.errorDescription)
