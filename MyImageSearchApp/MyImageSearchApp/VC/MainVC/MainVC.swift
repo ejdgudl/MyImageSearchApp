@@ -101,20 +101,29 @@ class MainVC: UIViewController {
                     return
                 }
                 
-                // request
-                self?.searchImages(keyward: text, completion: { documents in
-                    self?.documents = documents
-                    self?.page = 1
-                    self?.searchHistory = text
-                    self?.searchController.isActive = false
-                    self?.searchController.searchBar.searchTextField.text = self?.searchHistory // isActive false시 textField.text 없어짐 방지
-                    self?.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
-                })
+                // Observable create and subscribe { type is SearchResult }
+                self?.kakaoService.getImagesWithRX(keyward: text, sort: .accuracy, page: 1)
+                    .subscribe(onNext: { (searchResult) in
+                        self?.documents = searchResult.documents
+                        self?.page = 1
+                        self?.searchHistory = text
+                        self?.searchController.isActive = false
+                        self?.searchController.searchBar.searchTextField.text = self?.searchHistory // isActive false시 textField.text 없어짐 방지
+                        self?.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+                        self?.isEnd = searchResult.meta.isEnd
+                    }, onError: { (error) in
+                        print("onError - \(error)")
+                    }, onCompleted: {
+                        print("onCompleted")
+                    }, onDisposed: {
+                        print("onDisposed")
+                    })
+                    .disposed(by: self!.bag)
                 
             }).disposed(by: bag)
     }
     
-    private func searchImages(keyward: String, page: Int = 1, completion: @escaping ([Document]) -> ()) {
+    private func searchImages(keyward: String, page: Int, completion: @escaping ([Document]) -> ()) {
         kakaoService.getImages(keyward: keyward, sort: .accuracy, page: page) { [weak self] (res) in
             switch res {
             case .success(let res):

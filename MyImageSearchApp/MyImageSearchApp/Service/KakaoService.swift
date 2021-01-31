@@ -7,11 +7,13 @@
 
 import UIKit
 import Alamofire
+import RxSwift
 
 protocol KakaoServiceable {
     
     var baseURL: String { get set }
     func getImages(keyward: String, sort: Sort, page: Int, completion: @escaping (Result<SearchResult, NetworkingError>) -> ())
+    func getImagesWithRX(keyward: String, sort: Sort, page: Int) -> Observable<SearchResult>
     
 }
 
@@ -24,7 +26,7 @@ final class KakaoServiceStub: KakaoServiceable {
     
     // MARK: - Helpers
     
-    func getImages(keyward: String, sort: Sort = .accuracy, page: Int = 1, completion: @escaping (Result<SearchResult, NetworkingError>) -> ()) {
+    func getImages(keyward: String, sort: Sort, page: Int, completion: @escaping (Result<SearchResult, NetworkingError>) -> ()) {
         do {
             let decodeResult = try JSONDecoder().decode(SearchResult.self, from: SampleData.documents)
             completion(.success(decodeResult))
@@ -33,6 +35,28 @@ final class KakaoServiceStub: KakaoServiceable {
         }
     }
     
+    // RX
+    func getImagesWithRX(keyward: String, sort: Sort, page: Int) -> Observable<SearchResult> {
+        
+        return Observable.create { (observer) -> Disposable in
+            
+            self.getImages(keyward: keyward, sort: sort, page: page) { (res) in
+                
+                switch res {
+                case .success(let data):
+                    observer.onNext(data)
+                    observer.onCompleted()
+                    
+                case .failure(let error):
+                    observer.onError(error)
+                }
+                
+            }
+            
+            return Disposables.create()
+            
+        }
+    }
 }
 
 /// 실 서버 response
@@ -98,6 +122,28 @@ final class KakaoService: KakaoServiceable {
             
         }
             
+    }
+    
+    // RX
+    func getImagesWithRX(keyward: String, sort: Sort, page: Int) -> Observable<SearchResult> {
+        
+        return Observable.create { (observer) -> Disposable in
+            
+            self.getImages(keyward: keyward, sort: sort, page: page) { (res) in
+                
+                switch res {
+                case .success(let data):
+                    observer.onNext(data)
+                    observer.onCompleted()
+                case .failure(let error):
+                    observer.onError(error)
+                }
+                
+            }
+            
+            return Disposables.create()
+            
+        }
     }
  
 }
