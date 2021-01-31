@@ -1,0 +1,311 @@
+//
+//  MainVC.swift
+//  MyImageSearchApp
+//
+//  Created by 김동현 on 2021/01/25.
+//
+
+import UIKit
+import SnapKit
+import RxSwift
+import RxCocoa
+
+fileprivate let imageCellID = "imageCell"
+fileprivate let headerCellID = "headerCell"
+
+class MainVC: UIViewController {
+    
+    // MARK: - Properties
+    
+    var kakaoService: KakaoServiceable
+    
+    var documents: [Document]? {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
+    
+    private let navigationTtileButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("KAKAO", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: -30, bottom: 0, right: 0)
+        button.titleLabel?.font = .boldSystemFont(ofSize: 17)
+        button.frame.size = CGSize(width: 100, height: 30)
+        button.isEnabled = false
+        return button
+    }()
+    
+    private lazy var navigationSortButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "list.dash"), for: .normal)
+        button.tintColor = .black
+        button.addTarget(self, action: #selector(didTapRightBarButton), for: .touchUpInside)
+        return button
+    }()
+    
+    let searchController: UISearchController = {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchBar.placeholder = "Search images"
+        return searchController
+    }()
+    
+    private let collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.backgroundColor = .white
+        return view
+    }()
+    
+    var searchHistory = ""
+    
+    private var page = 0
+    private var isEnd = false
+    
+    private var sortType: Sort = .accuracy
+    
+    private var bag = DisposeBag()
+    
+    // MARK: - Life Cycle
+    
+    init(kakaoService: KakaoServiceable) {
+        self.kakaoService = kakaoService
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configure()
+        configureNavi()
+        configureViews()
+        
+        subscribeTextField()
+    }
+    
+    // MARK: - Actions
+    
+    @objc private func didTapRightBarButton() {
+        let popUpVC = PopUpVC()
+        popUpVC.modalPresentationStyle = .overFullScreen
+        popUpVC.delegate = self
+        present(popUpVC, animated: true)
+    }
+    
+    // MARK: - Helpers
+    
+    private func checkDocumentsCount(searchResult: SearchResult) {
+        if searchResult.documents.count == 0 {
+            AlertManager.shared.noResult(vc: self) { [ weak self] in
+                self?.searchController.searchBar.searchTextField.becomeFirstResponder()
+            }
+        }
+    }
+    
+    private func scrollToTop() {
+        collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+    }
+    
+    private func subscribeTextField() {
+        
+        let tf = searchController.searchBar.searchTextField
+        
+        tf.rx.controlEvent(.editingChanged)
+            .asObservable()
+            .debounce(RxTimeInterval.seconds(1), scheduler: MainScheduler.instance)
+            .map { tf.text }
+            .filter { $0 != nil }
+            .map { $0! }
+            .subscribe(onNext: { [weak self] text in
+                
+                do {
+                    try self?.checkRequestAble()
+                } catch {
+                    print((error as! CheckRequestAbleError).errorDescription)
+                    return
+                }
+                
+                // Observable create and subscribe { type is SearchResult }
+                self?.kakaoService.getImagesWithRX(keyward: text, sort: self!.sortType, page: 1)
+                    .subscribe(onNext: { (searchResult) in
+                        self?.checkDocumentsCount(searchResult: searchResult)
+                        self?.documents = searchResult.documents
+                        self?.page = 1
+                        self?.searchHistory = text
+                        self?.searchController.isActive = false
+                        self?.searchController.searchBar.searchTextField.text = self?.searchHistory // isActive false시 textField.text 없어짐 방지
+                        self?.scrollToTop()
+                        self?.isEnd = searchResult.meta.isEnd
+                    }, onError: { (error) in
+                        print("onError - \(error)")
+                    }, onCompleted: {
+                        print("onCompleted")
+                    }, onDisposed: {
+                        print("onDisposed")
+                    })
+                    .disposed(by: self!.bag)
+                
+            }).disposed(by: bag)
+    }
+    
+    private func searchImages(keyward: String, sortType: Sort, page: Int, completion: @escaping ([Document]) -> ()) {
+        kakaoService.getImages(keyward: keyward, sort: sortType, page: page) { [weak self] (res) in
+            switch res {
+            case .success(let res):
+                self?.isEnd = res.meta.isEnd
+                self?.checkDocumentsCount(searchResult: res)
+                completion(res.documents)
+            case .failure(let err):
+                print(err.errorDescription)
+            }
+        }
+    }
+    
+    // MARK: - Configure
+    
+    private func configure() {
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(ImageCell.self, forCellWithReuseIdentifier: imageCellID)
+        collectionView.register(CollectionHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerCellID)
+        searchController.searchBar.delegate = self
+    }
+    
+    // MARK: - ConfigureNavi
+    
+    private func configureNavi() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: navigationTtileButton)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: navigationSortButton)
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+    }
+    
+    // MARK: - ConfigureViews
+    
+    private func configureViews() {
+        view.backgroundColor = .white
+        
+        view.addSubview(collectionView)
+        collectionView.snp.makeConstraints { (make) in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+    }
+    
+}
+
+// MARK: - UIColectionView Delegate, DataSource
+
+extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return documents?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        do {
+            return try cellForItem(collectionView: collectionView, documents: documents, indexPath: indexPath, cellID: imageCellID)
+        } catch {
+            print(error.localizedDescription)
+            return UICollectionViewCell()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        do {
+            try presentDetailVC(documents: documents, row: indexPath.row)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    /// Paging
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let count = documents?.count ?? 0
+        if indexPath.item == count - 1 && !isEnd {
+            page += 1
+            searchImages(keyward: searchHistory, sortType: sortType, page: page) { [weak self] documents in
+                documents.forEach {
+                    self?.documents?.append($0)
+                }
+            }
+        }
+    }
+    
+    // Header
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerCellID, for: indexPath) as? CollectionHeaderCell else { return UICollectionReusableView() }
+        if documents == nil || searchController.searchBar.searchTextField.text == "" {
+            cell.label.text = "검색어를 입력해 주세요"
+        } else if documents?.count == 0 {
+            cell.label.text = "연관검색어가 없습니다"
+        }
+        return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        let invisibleHeaderSize = CGSize(width: 0, height: 0)
+        let visibleHeaderSize = CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+        guard let documentsCount = documents?.count else { return visibleHeaderSize }
+        return documentsCount > 0 ? invisibleHeaderSize : visibleHeaderSize
+    }
+}
+
+// MARK: - UICollectionView DelegateFlowLayout
+
+extension MainVC: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: (view.frame.width) / 3 - 2, height: (view.frame.width) / 3 - 2)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
+    }
+    
+}
+
+// MARK: - PopUpVC Delegate
+
+extension MainVC: PopUpVCDelegate {
+    
+    func didTapSortButton(sortType: Sort) {
+        
+        self.sortType = sortType
+        page = 1
+        
+        guard searchController.searchBar.searchTextField.text != "" else { return }
+        
+        searchImages(keyward: searchHistory, sortType: sortType, page: page) { [weak self] documents in
+            self?.documents = documents
+        }
+        
+        if let documentCount = documents?.count, documentCount > 0 {
+            scrollToTop()
+        }
+        
+    }
+    
+}
+
+// MARK: - UISearchBar Delegate
+
+extension MainVC: UISearchBarDelegate {
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchHistory = ""
+        documents?.removeAll()
+        collectionView.reloadData()
+    }
+    
+}
