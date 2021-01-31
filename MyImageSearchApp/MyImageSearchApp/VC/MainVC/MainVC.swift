@@ -303,6 +303,8 @@ extension MainVC: PopUpVCDelegate {
 extension MainVC: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchHistory = ""
+        documents?.removeAll()
         collectionView.reloadData()
     }
     
