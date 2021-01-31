@@ -40,7 +40,7 @@ class MainVC: UIViewController {
         let button = UIButton()
         button.setImage(UIImage(systemName: "list.dash"), for: .normal)
         button.tintColor = .black
-        button.addTarget(self, action: #selector(didTapSortButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTapRightBarButton), for: .touchUpInside)
         return button
     }()
     
@@ -62,6 +62,8 @@ class MainVC: UIViewController {
     
     private var page = 0
     private var isEnd = false
+    
+    private var sortType: Sort = .accuracy
     
     private var bag = DisposeBag()
     
@@ -87,13 +89,18 @@ class MainVC: UIViewController {
     
     // MARK: - Actions
     
-    @objc private func didTapSortButton() {
+    @objc private func didTapRightBarButton() {
         let popUpVC = PopUpVC()
         popUpVC.modalPresentationStyle = .overFullScreen
+        popUpVC.delegate = self
         present(popUpVC, animated: true)
     }
     
     // MARK: - Helpers
+    
+    private func scrollToTop() {
+        collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+    }
     
     private func subscribeTextField() {
         
@@ -115,14 +122,14 @@ class MainVC: UIViewController {
                 }
                 
                 // Observable create and subscribe { type is SearchResult }
-                self?.kakaoService.getImagesWithRX(keyward: text, sort: .accuracy, page: 1)
+                self?.kakaoService.getImagesWithRX(keyward: text, sort: self!.sortType, page: 1)
                     .subscribe(onNext: { (searchResult) in
                         self?.documents = searchResult.documents
                         self?.page = 1
                         self?.searchHistory = text
                         self?.searchController.isActive = false
                         self?.searchController.searchBar.searchTextField.text = self?.searchHistory // isActive false시 textField.text 없어짐 방지
-                        self?.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+                        self?.scrollToTop()
                         self?.isEnd = searchResult.meta.isEnd
                     }, onError: { (error) in
                         print("onError - \(error)")
@@ -136,8 +143,8 @@ class MainVC: UIViewController {
             }).disposed(by: bag)
     }
     
-    private func searchImages(keyward: String, page: Int, completion: @escaping ([Document]) -> ()) {
-        kakaoService.getImages(keyward: keyward, sort: .accuracy, page: page) { [weak self] (res) in
+    private func searchImages(keyward: String, sortType: Sort, page: Int, completion: @escaping ([Document]) -> ()) {
+        kakaoService.getImages(keyward: keyward, sort: sortType, page: page) { [weak self] (res) in
             switch res {
             case .success(let res):
                 self?.isEnd = res.meta.isEnd
@@ -214,7 +221,7 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
         let count = documents?.count ?? 0
         if indexPath.item == count - 1 && !isEnd {
             page += 1
-            searchImages(keyward: searchHistory, page: page) { [weak self] documents in
+            searchImages(keyward: searchHistory, sortType: sortType, page: page) { [weak self] documents in
                 documents.forEach {
                     self?.documents?.append($0)
                 }
@@ -258,6 +265,29 @@ extension MainVC: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
+    }
+    
+}
+
+// MARK: - PopUpVC Delegate
+
+extension MainVC: PopUpVCDelegate {
+    
+    func didTapSortButton(sortType: Sort) {
+        
+        self.sortType = sortType
+        page = 1
+        
+        guard searchController.searchBar.searchTextField.text != "" else { return }
+        
+        searchImages(keyward: searchHistory, sortType: sortType, page: page) { [weak self] documents in
+            self?.documents = documents
+        }
+        
+        if let documentCount = documents?.count, documentCount > 0 {
+            scrollToTop()
+        }
+        
     }
     
 }
