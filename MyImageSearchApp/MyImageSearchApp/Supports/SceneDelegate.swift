@@ -17,7 +17,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(windowScene: windowScene)
 //        window?.rootViewController = UINavigationController(rootViewController: MainVC(kakaoService: KakaoServiceStub()))
-        window?.rootViewController = UINavigationController(rootViewController: MainVC(kakaoService: KakaoService()))
+//        window?.rootViewController = UINavigationController(rootViewController: MainVC(kakaoService: KakaoService()))
+        window?.rootViewController = LauchVC()
         window?.makeKeyAndVisible()
     }
 

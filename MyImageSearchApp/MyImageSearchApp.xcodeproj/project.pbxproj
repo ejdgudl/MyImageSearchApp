@@ -25,6 +25,8 @@
 		D393F0E925C04E5C00C399F2 /* DetailVCViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D393F0E825C04E5C00C399F2 /* DetailVCViewModel.swift */; };
 		D393F0EE25C051ED00C399F2 /* ImageCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D393F0ED25C051ED00C399F2 /* ImageCellViewModel.swift */; };
 		D393F0F625C05F8000C399F2 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D393F0F525C05F8000C399F2 /* SampleData.swift */; };
+		D3ACC7CD25C6BC040026D81C /* LauchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC7CC25C6BC040026D81C /* LauchVC.swift */; };
+		D3ACC7D325C6BC3B0026D81C /* launchImage.gif in Resources */ = {isa = PBXBuildFile; fileRef = D3ACC7D225C6BC3B0026D81C /* launchImage.gif */; };
 		D3E2BE8C25BF2B7C003D0307 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E2BE8B25BF2B7C003D0307 /* ImageCell.swift */; };
 		D3E2BE9625BF3418003D0307 /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E2BE9525BF3418003D0307 /* DetailVC.swift */; };
 		D3F1F6D125C2FC1E007F632D /* DetailVCPresent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F1F6D025C2FC1E007F632D /* DetailVCPresent.swift */; };
@@ -68,6 +70,8 @@
 		D393F0E825C04E5C00C399F2 /* DetailVCViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVCViewModel.swift; sourceTree = "<group>"; };
 		D393F0ED25C051ED00C399F2 /* ImageCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCellViewModel.swift; sourceTree = "<group>"; };
 		D393F0F525C05F8000C399F2 /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
+		D3ACC7CC25C6BC040026D81C /* LauchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauchVC.swift; sourceTree = "<group>"; };
+		D3ACC7D225C6BC3B0026D81C /* launchImage.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = launchImage.gif; sourceTree = "<group>"; };
 		D3E2BE8B25BF2B7C003D0307 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		D3E2BE9525BF3418003D0307 /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
 		D3F1F6D025C2FC1E007F632D /* DetailVCPresent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVCPresent.swift; sourceTree = "<group>"; };
@@ -170,6 +174,7 @@
 				D36F611425BF030500F1FF4C /* VC */,
 				D36F611325BF02FD00F1FF4C /* Supports */,
 				D36F610625BF024C00F1FF4C /* Assets.xcassets */,
+				D3ACC7D225C6BC3B0026D81C /* launchImage.gif */,
 				D36F610825BF024C00F1FF4C /* LaunchScreen.storyboard */,
 				D36F610B25BF024C00F1FF4C /* Info.plist */,
 			);
@@ -188,6 +193,7 @@
 		D36F611425BF030500F1FF4C /* VC */ = {
 			isa = PBXGroup;
 			children = (
+				D3ACC7CB25C6BBF50026D81C /* LauchVC */,
 				D32717D625C6A1580094283F /* PopUpVC */,
 				D3E2BE9325BF3400003D0307 /* MainVC */,
 				D3E2BE9425BF340A003D0307 /* DetailVC */,
@@ -234,6 +240,14 @@
 				D393F0ED25C051ED00C399F2 /* ImageCellViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		D3ACC7CB25C6BBF50026D81C /* LauchVC */ = {
+			isa = PBXGroup;
+			children = (
+				D3ACC7CC25C6BC040026D81C /* LauchVC.swift */,
+			);
+			path = LauchVC;
 			sourceTree = "<group>";
 		};
 		D3E2BE8A25BF2B6A003D0307 /* CollectionViewCell */ = {
@@ -364,6 +378,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3ACC7D325C6BC3B0026D81C /* launchImage.gif in Resources */,
 				D36F610A25BF024C00F1FF4C /* LaunchScreen.storyboard in Resources */,
 				D36F610725BF024C00F1FF4C /* Assets.xcassets in Resources */,
 			);
@@ -445,6 +460,7 @@
 				D3F1F6D125C2FC1E007F632D /* DetailVCPresent.swift in Sources */,
 				D3E2BE8C25BF2B7C003D0307 /* ImageCell.swift in Sources */,
 				D3E2BE9625BF3418003D0307 /* DetailVC.swift in Sources */,
+				D3ACC7CD25C6BC040026D81C /* LauchVC.swift in Sources */,
 				D32717DD25C6A1BD0094283F /* SortButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -636,6 +652,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RA99PDU87Z;
 				INFOPLIST_FILE = MyImageSearchApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -656,6 +673,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RA99PDU87Z;
 				INFOPLIST_FILE = MyImageSearchApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
