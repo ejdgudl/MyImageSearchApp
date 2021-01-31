@@ -172,6 +172,7 @@ class MainVC: UIViewController {
         collectionView.delegate = self
         collectionView.register(ImageCell.self, forCellWithReuseIdentifier: imageCellID)
         collectionView.register(CollectionHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerCellID)
+        searchController.searchBar.delegate = self
     }
     
     // MARK: - ConfigureNavi
@@ -293,6 +294,16 @@ extension MainVC: PopUpVCDelegate {
             scrollToTop()
         }
         
+    }
+    
+}
+
+// MARK: - UISearchBar Delegate
+
+extension MainVC: UISearchBarDelegate {
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        collectionView.reloadData()
     }
     
 }
