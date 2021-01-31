@@ -27,13 +27,13 @@ enum CheckRequestAbleError: Error {
     func descriptionPrint() {
         print(errorDescription)
     }
-
+    
 }
 
 // MARK: - Check Request Able
 
 extension MainVC {
-
+    
     func checkRequestAble() throws {
         
         guard searchController.searchBar.searchTextField.text != "" else {

@@ -29,7 +29,7 @@ struct Document: Codable {
         case imageURL = "image_url"
         case thumbnailURL = "thumbnail_url"
     }
-
+    
 }
 
 struct Meta: Codable {

@@ -33,9 +33,9 @@ struct DetailVCViewModel {
         if let date = dateFormatter.date(from: document.datetime) {
             let timeStamp = dateFormatter.string(from: date)
             
-            let dd = result == "" ? timeStamp : " - \(timeStamp)"
+            let dateString = result == "" ? timeStamp : " - \(timeStamp)"
             
-            result.append(dd)
+            result.append(dateString)
         }
         
         return result

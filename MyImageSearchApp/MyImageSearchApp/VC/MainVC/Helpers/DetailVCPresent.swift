@@ -28,7 +28,7 @@ enum DetailVCPresentError: Error {
 // MARK: - present DetailVC
 
 extension MainVC {
-
+    
     func presentDetailVC(documents: [Document]?, row: Int) throws {
         
         guard let documents = documents else { throw  DetailVCPresentError.noDocuments }

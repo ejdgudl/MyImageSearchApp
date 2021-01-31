@@ -121,7 +121,7 @@ final class KakaoService: KakaoServiceable {
             }
             
         }
-            
+        
     }
     
     // RX
@@ -145,7 +145,7 @@ final class KakaoService: KakaoServiceable {
             
         }
     }
- 
+    
 }
 
 

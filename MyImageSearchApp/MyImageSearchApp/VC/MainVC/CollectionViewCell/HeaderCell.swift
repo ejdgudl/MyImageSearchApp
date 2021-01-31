@@ -11,7 +11,7 @@ class CollectionHeaderCell: UICollectionReusableView {
     
     // MARK: properties
     lazy var label: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 30)
         label.text = "검색어를 입력해 주세요"
         return label

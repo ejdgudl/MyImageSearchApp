@@ -14,7 +14,7 @@ fileprivate let imageCellID = "imageCell"
 fileprivate let headerCellID = "headerCell"
 
 class MainVC: UIViewController {
-
+    
     // MARK: - Properties
     
     var kakaoService: KakaoServiceable
@@ -194,7 +194,7 @@ class MainVC: UIViewController {
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
-
+    
 }
 
 // MARK: - UIColectionView Delegate, DataSource
@@ -264,7 +264,7 @@ extension MainVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 1
     }
-        
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 1
     }
